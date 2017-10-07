@@ -28,9 +28,9 @@ import * as Auth from '../../app-auth/actions/auth';
           Sign Out
         </bc-nav-item>
       </bc-sidenav>
-      <bc-toolbar (openMenu)="openSidenav()">
+      <ngdz-header (openMenu)="openSidenav()">
         Book Collection
-      </bc-toolbar>
+      </ngdz-header>
 
       <router-outlet></router-outlet>
     </bc-layout>
