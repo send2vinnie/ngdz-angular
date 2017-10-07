@@ -11,10 +11,12 @@ import { ToolbarComponent } from './components/toolbar';
 import { reducers } from './reducers';
 import { StoreModule } from '@ngrx/store';
 import { AppSharedModule } from '../app-shared/app-shared.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     AppSharedModule,
+    RouterModule,
     StoreModule.forFeature('layout', reducers)
   ],
   declarations: [

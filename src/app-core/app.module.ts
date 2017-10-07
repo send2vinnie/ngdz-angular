@@ -2,7 +2,6 @@
 // import { DBModule } from '@ngrx/db';
 // import { schema } from './db';
 import { AppCoreModule } from './app-core/app-core.module';
-import { AppRoutingModule } from './app-routing.module';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,17 +20,19 @@ import { AppComponent } from './app-shell/containers/app.component';
 
 import 'hammerjs';
 import { AppSharedModule } from './app-shared/app-shared.module';
+import { RouterModule } from '@angular/router';
+import { routes } from './app-routing.module';
 @NgModule({
 
 
   imports: [
     CommonModule,
-    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
-
+    RouterModule.forRoot(routes),
     // local application modules
+
     AppCoreModule.forRoot(),
     AppShellModule.forRoot(),
     AppAuthModule.forRoot(),

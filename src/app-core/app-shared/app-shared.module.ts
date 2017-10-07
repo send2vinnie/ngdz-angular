@@ -43,11 +43,9 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PlatformModule } from '@angular/cdk/platform';
 import { PortalModule } from '@angular/cdk/portal';
-import { RouterModule } from '@angular/router';
 
 
 const exportImport = [
-  RouterModule,
   CommonModule,
   ReactiveFormsModule,
   MatAutocompleteModule,
