@@ -11,7 +11,7 @@ import { Component, Input } from '@angular/core';
   `,
   styles: [
     `
-    md-sidenav {
+    mat-sidenav {
       width: 300px;
     }
   `,

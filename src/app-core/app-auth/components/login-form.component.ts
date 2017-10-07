@@ -10,23 +10,23 @@ import { Authenticate } from '../models/user';
       <mat-card-content>
         <form [formGroup]="form" (ngSubmit)="submit()">
           <p>
-            <mat-input-container>
-              <input type="text" mdInput placeholder="Username" formControlName="username">
-            </mat-input-container>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Username" formControlName="username">
+            </mat-form-field>
           </p>
 
           <p>
-            <mat-input-container>
-              <input type="password" mdInput placeholder="Password" formControlName="password">
-            </mat-input-container>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field>
           </p>
 
           <p *ngIf="errorMessage" class="loginError">
             {{ errorMessage }}
-          </p>          
-        
+          </p>
+
           <p class="loginButtons">
-            <button type="submit" md-button>Login</button>
+            <button type="submit" mat-button>Login</button>
           </p>
 
         </form>
@@ -41,8 +41,8 @@ import { Authenticate } from '../models/user';
       margin: 72px 0;
     }
 
-    md-card-title,
-    md-card-content {
+    mat-card-title,
+    mat-card-content {
       display: flex;
       justify-content: center;
     }
