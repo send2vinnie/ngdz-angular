@@ -5,13 +5,13 @@ import * as fromAuth from '../reducers';
 import * as Auth from '../actions/auth';
 
 @Component({
-  selector: 'bc-login-page',
+  selector: 'ngdz-login-page',
   template: `
-    <bc-login-form
+    <ngdz-login-form
       (submitted)="onSubmit($event)"
       [pending]="pending$ | async"
       [errorMessage]="error$ | async">
-    </bc-login-form>
+    </ngdz-login-form>
   `,
   styles: [],
 })

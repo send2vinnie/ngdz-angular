@@ -86,7 +86,7 @@ const exportImport = [
   ObserversModule,
   OverlayModule,
   PlatformModule,
-  PortalModule,
+  PortalModule
 ];
 
 
