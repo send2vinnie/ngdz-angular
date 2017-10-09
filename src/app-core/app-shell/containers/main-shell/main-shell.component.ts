@@ -28,6 +28,7 @@ export class MainShellComponent {
      * tree to the provided selector
      */
     this.showSidenav$ = this.store.select(fromRoot.getShowSidenav);
+    this.showSidenav$.subscribe(o => console.log('Sidenav:', o));
     this.loggedIn$ = this.store.select(fromAuth.getLoggedIn);
   }
 

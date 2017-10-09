@@ -8,7 +8,8 @@
       Browse Books
     </ngdz-navigation-item>
     <ngdz-navigation-item (navigate)="closeSidenav()" *ngIf="!(loggedIn$ | async)">
-      Sign In
+      <a [routerLink]="['/login']">Sign In</a>
+
     </ngdz-navigation-item>
     <ngdz-navigation-item (navigate)="logout()" *ngIf="loggedIn$ | async">
       Sign Out

@@ -22,7 +22,7 @@ import { NotFoundPageComponent } from './containers/not-found-page/not-found-pag
   imports: [
     AppSharedModule,
     RouterModule,
-    StoreModule.forFeature('layout', reducers)
+    StoreModule.forFeature('shell', reducers)
   ],
   declarations: [
     MainShellComponent,

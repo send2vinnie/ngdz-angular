@@ -45,7 +45,7 @@ export const reducers: ActionReducerMap<State> = {
 
 // console.log all actions
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
-  return function(state: State, action: any): State {
+  return function (state: State, action: any): State {
     console.log('state', state);
     console.log('action', action);
 
@@ -56,9 +56,14 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 /**
  * Layout Reducers
  */
-export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
+export const getShellState = createFeatureSelector<State>('shell');
+export const getLayoutSelector = (state: State) => state.layout;
+export const getLayout = createSelector(
+  getShellState,
+  getLayoutSelector
+);
 
 export const getShowSidenav = createSelector(
-  getLayoutState,
+  getLayout,
   fromLayout.getShowSidenav
 );
