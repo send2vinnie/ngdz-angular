@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../reducers';
 import * as fromAuth from '../../../app-auth/reducers';
-import * as layout from '../../actions/layout';
+
 import * as Auth from '../../../app-auth/actions/auth';
 
 
@@ -27,7 +27,7 @@ export class MainShellComponent {
      * Selectors can be applied with the `select` operator which passes the state
      * tree to the provided selector
      */
-    this.showSidenav$ = this.store.select(fromRoot.getShowSidenav);
+    this.showSidenav$ = this.store.select(fromRoot.getSidenavOpen);
     this.showSidenav$.subscribe(o => console.log('Sidenav:', o));
     this.loggedIn$ = this.store.select(fromAuth.getLoggedIn);
   }
@@ -39,11 +39,11 @@ export class MainShellComponent {
      * updates and user interaction through the life of our
      * application.
      */
-    this.store.dispatch(new layout.CloseSidenav());
+    // this.store.dispatch(new layout.CloseSidenav());
   }
 
   openSidenav() {
-    this.store.dispatch(new layout.OpenSidenav());
+    // this.store.dispatch(new layout.OpenSidenav());
   }
 
   logout() {

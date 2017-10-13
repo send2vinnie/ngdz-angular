@@ -4,6 +4,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app-core/app.module';
 import { environment } from './environments/environment';
 
+
+import 'rxjs/Subject';
+
 if (environment.production) {
   enableProdMode();
 }

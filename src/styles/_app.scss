@@ -1,4 +1,12 @@
-@import "app.variables";
 @import "material";
-@import "core";
-@import "html";
+@import "app.variables";
+@import "layout";
+@import "core/background";
+@import "core/misc";
+@import "core/card";
+@import "html/alertes";
+@import "html/div";
+@import "html/tables";
+@import "components/header";
+@import "components/sidenav";
+@import "components/quickpanel";

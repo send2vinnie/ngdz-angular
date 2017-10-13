@@ -1,6 +1,41 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <button mat-icon-button (click)="openMenu.emit()">
     <mat-icon>menu</mat-icon>
   </button>
   <ng-content></ng-content>
-</mat-toolbar>
+</mat-toolbar> -->
+<div class="toolbar mat-elevation-z4" fxLayout="row">
+
+    <div class="sidenav-header" fxFlex fxFlex.gt-sm="270px" fxLayout="row" fxLayoutAlign="start center">
+      <button class="menu-toggle" type="button" mat-icon-button (click)="toggledSidenav.emit()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <!-- <img class="logo" alt="logo" src="assets/img/logo2x.png" fxHide fxShow.gt-sm> -->
+      <h2 class="logo" fxHide fxShow.gt-sm>
+        NGDZ
+      </h2>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end stretch" fxLayoutAlign.gt-sm="space-between stretch" fxFlex>
+
+      <div class="search-bar" fxHide fxShow.gt-sm
+           fxLayout="row" fxLayoutAlign="start center" fxFlex fxFlex.gt-md="500px">
+        <ngdz-search-bar></ngdz-search-bar>
+      </div>
+
+      <div fxLayout="row" fxFlexOffset.gt-sm="24px">
+        <ngdz-search fxShow fxHide.gt-sm></ngdz-search>
+
+        <ngdz-toolbar-notifications></ngdz-toolbar-notifications>
+
+        <ngdz-toolbar-user-button></ngdz-toolbar-user-button>
+
+        <button mat-button class="quickpanel-button icon-button" [class.open]="quickpanelOpen" (click)="toggleQuickpanel()">
+          <mat-icon class="icon">format_align_right</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+

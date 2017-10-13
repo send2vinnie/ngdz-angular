@@ -61,7 +61,7 @@ import { AppComponent } from './app-shell/containers/app/app.component';
      *
      * See: https://github.com/zalmoxisus/redux-devtools-extension
      */
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    // !environment.production ? StoreDevtoolsModule.instrument() : [],
 
     /**
      * EffectsModule.forRoot() is imported once in the root module and

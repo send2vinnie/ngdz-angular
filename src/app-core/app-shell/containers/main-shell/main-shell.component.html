@@ -1,5 +1,11 @@
 <ngdz-layout>
-  <ngdz-side-navigation [open]="showSidenav$ | async">
+  <mat-sidenav [opened]="showSidenav$ | async" >
+    <mat-nav-list>
+      tsds
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- <ngdz-side-navigation [open]="showSidenav$ | async">
     <ngdz-navigation-item (navigate)="closeSidenav()" *ngIf="loggedIn$ | async" routerLink="/" icon="book" hint="View your book collection">
       My Collection
     </ngdz-navigation-item>
@@ -14,9 +20,8 @@
     <ngdz-navigation-item (navigate)="logout()" *ngIf="loggedIn$ | async">
       Sign Out
     </ngdz-navigation-item>
-  </ngdz-side-navigation>
+  </ngdz-side-navigation> -->
   <ngdz-header (openMenu)="openSidenav()">
-    Angular DZ Enterprise Application Boilerplate
   </ngdz-header>
 
   <router-outlet></router-outlet>

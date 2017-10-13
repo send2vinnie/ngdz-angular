@@ -1,3 +1,45 @@
-<mat-sidenav-container fullscreen>
-  <ng-content></ng-content>
+<mat-sidenav-container class="layout-container" [ngClass]="cardElevation$ | async">
+
+  <mat-sidenav class="settings-sidenav" (open)="openSettings()" (close)="closeSettings()" [opened]="settingsOpen$ | async"
+    mode="over" align="end" #options>
+    <ngdz-settings></ngdz-settings>
+  </mat-sidenav>
+
+  <div class="layout beta" fxLayout="column" [class.boxed]="layoutBoxed$ | async">
+
+    <!-- Layout Beta -->
+    <ngdz-header   [quickpanelOpen]="quickpanelOpen$ | async" (toggledSidenav)="toggleSidenav()" (toggledQuickpanel)="toggleQuickpanel()"></ngdz-header>
+    <!-- /Layout: Beta -->
+
+
+
+    <mat-sidenav-container fxFlex>
+
+      <mat-sidenav class="quickpanel-container" (open)="openQuickpanel()" (close)="closeQuickpanel()" [opened]="quickpanelOpen$ | async"
+        [align]="quickpanelAlign" [mode]="quickpanelMode">
+        <ngdz-quickpanel></ngdz-quickpanel>
+      </mat-sidenav>
+
+      <mat-sidenav class="sidenav-container" (open)="openSidenav()" (close)="closeSidenav()" [opened]="sidenavOpen$ | async" [align]="sidenavAlign$ | async"
+        [mode]="sidenavMode$ | async" [disableClose]="sidenavDisableClose$ | async" [ngdzSidenavCollapse]="sidenavCollapsed$ | async">
+
+        <ngdz-sidenav [layout]="layout" [collapsed]="sidenavCollapsed$ | async" (toggledSidenavCollapse)="toggleSidenavCollapse()"></ngdz-sidenav>
+
+      </mat-sidenav>
+
+      <div class="toolbar-container" fxLayout="column">
+
+
+        <ngdz-scrollbar id="main-scrollbar" class="content-container" fxFlex #scrollContainer>
+          <router-outlet (activate)="onActivate()"></router-outlet>
+        </ngdz-scrollbar>
+      </div>
+    </mat-sidenav-container>
+
+  </div>
+
+  <div id="settings" class="options-toggle mat-elevation-z4" matRipple (click)="toggleSettings()" fxLayout="row" fxLayoutAlign="center center">
+    <mat-icon>settings</mat-icon>
+  </div>
+
 </mat-sidenav-container>

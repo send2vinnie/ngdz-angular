@@ -17,11 +17,20 @@ import { HomePageComponent } from './containers/home-page/home-page.component';
 import { EmptyShellComponent } from './containers/empty-shell/empty-shell.component';
 import { AppComponent } from './containers/app/app.component';
 import { NotFoundPageComponent } from './containers/not-found-page/not-found-page.component';
+import { SearchComponent } from './components/header/search/search.component';
+import { ToolbarNotificationsComponent } from './components/header/toolbar-notifications/toolbar-notifications.component';
+import { ToolbarUserButtonComponent } from './components/header/toolbar-user-button/toolbar-user-button.component';
+import { SearchBarComponent } from './components/header/search-bar/search-bar.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { QuickpanelComponent } from './components/quickpanel/quickpanel.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { SidenavItemComponent } from './components/sidenav/sidenav-item/sidenav-item.component';
+import { SidenavCollapseDirective } from './components/sidenav/sidenav-collapse.directive';
 
 @NgModule({
   imports: [
     AppSharedModule,
-    RouterModule,
+    RouterModule.forChild([]),
     StoreModule.forFeature('shell', reducers)
   ],
   declarations: [
@@ -40,8 +49,20 @@ import { NotFoundPageComponent } from './containers/not-found-page/not-found-pag
     LayoutComponent,
     MainShellComponent,
     HomePageComponent,
+    SearchComponent,
+    ToolbarNotificationsComponent,
+    ToolbarUserButtonComponent,
+    SearchBarComponent,
+    SettingsComponent,
+    QuickpanelComponent,
+    SidenavComponent,
+    SidenavItemComponent,
+    SidenavCollapseDirective,
   ],
   exports: [
+    SidenavComponent,
+    SidenavItemComponent,
+    SidenavCollapseDirective,
     MainShellComponent,
     LayoutComponent,
     NotFoundPageComponent,
@@ -56,6 +77,12 @@ import { NotFoundPageComponent } from './containers/not-found-page/not-found-pag
     BreadcrumbComponent,
     MainShellComponent,
     HomePageComponent,
+    SearchComponent,
+    ToolbarNotificationsComponent,
+    ToolbarUserButtonComponent,
+    SearchBarComponent,
+    SettingsComponent,
+    QuickpanelComponent,
   ],
 })
 export class AppShellModule {

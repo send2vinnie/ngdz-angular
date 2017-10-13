@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -44,10 +44,18 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PlatformModule } from '@angular/cdk/platform';
 import { PortalModule } from '@angular/cdk/portal';
 
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ClickOutsideDirective } from './utils/click-outside.directive';
+import { MediaReplayService } from './utils/media-replay.service';
+import { ScrollbarComponent } from './components/scrollbar/scrollbar.component';
 const exportImport = [
+  // Angular Modules
   CommonModule,
+  FormsModule,
   ReactiveFormsModule,
+  // Flex Layout Module
+  FlexLayoutModule,
+  // Material Modules
   MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
@@ -95,16 +103,21 @@ const exportImport = [
     ...exportImport
   ],
   exports: [
-    ...exportImport
+    ...exportImport,
+    ClickOutsideDirective,
+    ScrollbarComponent
   ],
-  declarations: []
+  declarations: [
+    ClickOutsideDirective,
+    ScrollbarComponent
+  ]
 })
 export class AppSharedModule {
   static forRoot() {
     return {
       ngModule: AppSharedModule,
       providers: [
-
+        MediaReplayService,
       ],
     };
   }

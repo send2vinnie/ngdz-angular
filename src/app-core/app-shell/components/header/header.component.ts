@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ngdz-header',
@@ -7,10 +7,21 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() openMenu = new EventEmitter();
+  @Input() quickpanelOpen: boolean;
+
+  @Output() toggledSidenav = new EventEmitter();
+  @Output() toggledQuickpanel = new EventEmitter();
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  toggleSidenav() {
+    this.toggledSidenav.emit();
+  }
+
+  toggleQuickpanel() {
+    this.toggledQuickpanel.emit();
   }
 
 }

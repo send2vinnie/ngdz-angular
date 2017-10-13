@@ -6,64 +6,53 @@ import {
   MetaReducer,
 } from '@ngrx/store';
 
-
-import * as fromRouter from '@ngrx/router-store';
-
-/**
- * storeFreeze prevents state from being mutated. When mutation occurs, an
- * exception will be thrown. This is useful during development mode to
- * ensure that none of the reducers accidentally mutates the state.
- */
 import { storeFreeze } from 'ngrx-store-freeze';
+import * as fromLayout from '../components/layout/shared/layout.reducer';
+import * as fromSidenav from '../components/sidenav/shared/sidenav.reducer';
 
-/**
- * Every reducer module's default export is the reducer function itself. In
- * addition, each module should export a type or interface that describes
- * the state of the reducer plus any selector functions. The `* as`
- * notation packages up all of the exports into a single object.
- */
 
-import * as fromLayout from './layout';
 
-/**
- * As mentioned, we treat each reducer like a table in a database. This means
- * our top level state interface is just a map of keys to inner state types.
- */
 export interface State {
   layout: fromLayout.State;
-
+  sidenav: fromSidenav.State;
+  // inbox: fromInbox.State;
 }
 
+
 /**
- * Our state is composed of a map of action reducer functions.
- * These reducer functions are called with each dispatched action
- * and the current or initial state and return a new immutable state.
+ * Because metareducers take a reducer function and return a new reducer,
+ * we can use our compose helper to chain them together. Here we are
+ * using combineReducers to make our top level reducer, and then
+ * wrapping that in storeLogger. Remember that compose applies
+ * the result from right to left.
  */
 export const reducers: ActionReducerMap<State> = {
-  layout: fromLayout.reducer
+  layout: fromLayout.reducer,
+  sidenav: fromSidenav.reducer,
+  // inbox: fromInbox.reducer
 };
 
-// console.log all actions
-export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
-  return function (state: State, action: any): State {
-    console.log('state', state);
-    console.log('action', action);
+export const shell = createFeatureSelector<State>('shell');
 
-    return reducer(state, action);
-  };
-}
+export const getLayoutStateSelector = (state: State) => state.layout;
 
-/**
- * Layout Reducers
- */
-export const getShellState = createFeatureSelector<State>('shell');
-export const getLayoutSelector = (state: State) => state.layout;
-export const getLayout = createSelector(
-  getShellState,
-  getLayoutSelector
-);
+export const getLayoutState = createSelector(shell, getLayoutStateSelector);
 
-export const getShowSidenav = createSelector(
-  getLayout,
-  fromLayout.getShowSidenav
-);
+export const getSidenavOpen = createSelector(getLayoutState, fromLayout.getSidenavOpen);
+export const getSidenavCollapsed = createSelector(getLayoutState, fromLayout.getSidenavCollapsed);
+export const getSidenavAlign = createSelector(getLayoutState, fromLayout.getSidenavAlign);
+export const getSidenavMode = createSelector(getLayoutState, fromLayout.getSidenavMode);
+export const getSidenavDisableClose = createSelector(getLayoutState, fromLayout.getSidenavDisableClose);
+export const getQuickpanelOpen = createSelector(getLayoutState, fromLayout.getQuickpanelOpen);
+export const getLayout = createSelector(getLayoutState, fromLayout.getLayout);
+export const getLayoutBoxed = createSelector(getLayoutState, fromLayout.getLayoutBoxed);
+export const getSettingsOpen = createSelector(getLayoutState, fromLayout.getSettingsOpen);
+export const getCardElevation = createSelector(getLayoutState, fromLayout.getCardElevation);
+
+export const getSidenavStateSelector = (state: State) => state.sidenav;
+export const getSidenavState = createSelector(shell, getSidenavStateSelector);
+
+export const getSidenavItems = createSelector(getSidenavState, fromSidenav.getSidenavItems);
+export const getSidenavCurrentlyOpen = createSelector(getSidenavState, fromSidenav.getSidenavCurrentlyOpen);
+
+

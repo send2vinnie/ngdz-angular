@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayoutComponent } from './layout.component';
+import { ToolbarUserButtonComponent } from './toolbar-user-button.component';
 
-describe('LayoutComponent', () => {
-  let component: LayoutComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+describe('ToolbarUserButtonComponent', () => {
+  let component: ToolbarUserButtonComponent;
+  let fixture: ComponentFixture<ToolbarUserButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayoutComponent ]
+      declarations: [ ToolbarUserButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LayoutComponent);
+    fixture = TestBed.createComponent(ToolbarUserButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

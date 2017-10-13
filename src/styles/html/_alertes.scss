@@ -42,17 +42,17 @@
             color: $color-success;
         }
     }
-    
+
     &.is-warn {
-        border-left: 5px solid $color-warn;
+        border-left: 5px solid mat-color($color-warn);
         border-radius: 5px;
-        background-color: rgba($color-warn, 0.05);
+        background-color: rgba(mat-color($color-warn), 0.05);
 
         h1, h2, h3, h4, h5, h6 {
-            color: $color-warn;
+            color: mat-color($color-warn);
         }
     }
-    
+
     &.is-danger {
         border-left: 5px solid $color-danger;
         border-radius: 5px;
@@ -62,7 +62,7 @@
             color: $color-success;
         }
     }
-    
+
     &.is-info {
         border-left: 5px solid $blue;
         border-radius: 5px;

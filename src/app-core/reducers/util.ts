@@ -18,9 +18,15 @@ export interface RouterStateUrl {
 export class NgdzRouterStateSerializer
   implements RouterStateSerializer<RouterStateUrl> {
   serialize(routerState: RouterStateSnapshot): RouterStateUrl {
-    const { url } = routerState;
-    const queryParams = routerState.root.queryParams;
+    try {
+      const { url } = routerState;
+      const queryParams = routerState.root.queryParams;
 
-    return { url, queryParams };
+      return { url, queryParams };
+    } catch (ex) {
+      return null;
+
+    }
+
   }
 }
