@@ -1,42 +1,33 @@
-<div class="user-button-container" #userButton (ngdzClickOutside)="onClickOutside()">
-  <button class="user-button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
+<div class="user-button-container" [mat-menu-trigger-for]="userMenu">
+  <button class="user-button" mat-button (click)="isOpen = !isOpen" [class.open]="isOpen">
     <span fxLayout="row" fxLayoutAlign="start center">
       <span class="avatar-container" fxLayout="row" fxLayoutAlign="start center">
         <img class="avatar" src="assets/images/noavatar.png">
         <i class="status primary"></i>
       </span>
-      <span class="name" fxHide fxShow.gt-sm>David Smith</span>
+      <span class="name" fxHide fxShow.gt-sm>User Name</span>
       <mat-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</mat-icon>
     </span>
   </button>
-
-  <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
-    <div class="content">
-      <div class="list">
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" matRipple [routerLink]="['/pages/profile']">
-          <mat-icon class="icon">account_circle</mat-icon>
-          <span class="title">Profile</span>
-        </div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" matRipple [routerLink]="['/pages/profile']">
-          <mat-icon class="icon">settings</mat-icon>
-          <span class="title">Settings</span>
-        </div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" matRipple>
-          <mat-icon class="icon">person</mat-icon>
-          <span class="title">Online</span>
-
-          <div class="second-level-dropdown"></div>
-        </div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" matRipple>
-          <mat-icon class="icon">help</mat-icon>
-          <span class="title">Help</span>
-        </div>
-        <div class="divider"></div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" matRipple [routerLink]="['/auth/login']">
-          <mat-icon class="icon">exit_to_app</mat-icon>
-          <span class="title">Logout</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+<mat-menu yPosition="above" class="hide-y" [overlapTrigger]="false" #userMenu="matMenu">
+
+  <button mat-menu-item routerLinkActive="active" routerLink="account/settings">
+    <mat-icon>settings</mat-icon>
+    Settings
+  </button>
+  <button mat-menu-item routerLinkActive="active" routerLink="account/profile">
+    <mat-icon>account_box</mat-icon>
+    Profile
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    Disable notifications
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Sign Out
+  </button>
+
+</mat-menu>
+

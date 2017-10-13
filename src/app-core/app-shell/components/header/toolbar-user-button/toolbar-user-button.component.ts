@@ -21,7 +21,7 @@ export class ToolbarUserButtonComponent implements OnInit, AfterViewInit {
     this.isOpen = !this.isOpen;
   }
 
-  onClickOutside() {
-    this.isOpen = false;
+  logout() {
+    // TODO Implement user logout logic
   }
 }
