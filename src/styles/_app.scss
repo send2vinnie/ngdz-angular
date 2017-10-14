@@ -1,5 +1,6 @@
 @import "material";
 @import "app.variables";
+@include angular-material-theme($theme);
 @import "layout";
 @import "core/background";
 @import "core/misc";
