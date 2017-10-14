@@ -3,24 +3,24 @@
 
   <ngdz-scrollbar class="menu" fxFlex>
 
-    <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="heading mat-elevation-z1" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="name">Navigation</div>
 
-      <!-- Layout: Beta -->
-      <div class="actions">
+ 
+      <!-- <div class="actions">
         <button class="toggle" type="button" mat-icon-button (click)="toggleSidenavCollapse()" *ngIf="collapsed">
           <mat-icon>radio_button_unchecked</mat-icon>
         </button>
         <button class="toggle" type="button" mat-icon-button (click)="toggleSidenavCollapse()" *ngIf="!collapsed">
           <mat-icon>radio_button_checked</mat-icon>
         </button>
-      </div>
-      <!-- /Layout: Beta -->
+      </div> -->
+ 
 
     </div>
     <div class="sidenav-item-holder" *ngFor="let item of sidenavItems$ | async">
       <ngdz-sidenav-item class="sidenav-item-container" [item]="item" [currentlyOpen]="currentlyOpen$ | async"></ngdz-sidenav-item>
-
+      <mat-divider></mat-divider>
     </div>
 
   </ngdz-scrollbar>

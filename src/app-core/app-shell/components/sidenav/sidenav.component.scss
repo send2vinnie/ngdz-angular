@@ -41,8 +41,10 @@
     .heading {
       height: 32px;
       padding: 0 $padding-right__sidenav-item 0 $padding-left__sidenav-item;
-      margin-top: 8px;
-
+      margin-top: 0px;
+      color: $layout-color__toolbar;
+      z-index: 2;
+      background: $layout-background__toolbar !important;
       .name {
         font-family: 'Montserrat', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
         text-transform: uppercase;

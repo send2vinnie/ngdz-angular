@@ -1,42 +1,15 @@
-<mat-sidenav-container style="background:red!important;" class="layout-container" [ngClass]="cardElevation$ | async">
+<div fxLayout="Column" class="mat-red-A700 layout-container">
   <ngdz-header [quickpanelOpen]="quickpanelOpen$ | async" (toggledSidenav)="toggleSidenav()" (toggledQuickpanel)="toggleQuickpanel()"></ngdz-header>
 
-
-  <mat-sidenav class="settings-sidenav" (open)="openSettings()" (close)="closeSettings()" [opened]="settingsOpen$ | async"
-    mode="over" align="end" #options>
-    <ngdz-settings></ngdz-settings>
-  </mat-sidenav>
-
-  <div class="layout beta"  fxLayout="column" [class.boxed]="layoutBoxed$ | async">
-
-
-    <mat-sidenav-container fxFlex>
-
-      <mat-sidenav class="quickpanel-container" (open)="openQuickpanel()" (close)="closeQuickpanel()" [opened]="quickpanelOpen$ | async"
-        align="end" mode="over">
-        <ngdz-quickpanel></ngdz-quickpanel>
-      </mat-sidenav>
-
-      <mat-sidenav class="sidenav-container" (open)="openSidenav()" (close)="closeSidenav()" [opened]="sidenavOpen$ | async" [align]="sidenavAlign$ | async"
-        [mode]="sidenavMode$ | async" [disableClose]="sidenavDisableClose$ | async" [ngdzSidenavCollapse]="sidenavCollapsed$ | async">
-
-        <ngdz-sidenav [layout]="layout" [collapsed]="sidenavCollapsed$ | async" (toggledSidenavCollapse)="toggleSidenavCollapse()"></ngdz-sidenav>
-
-      </mat-sidenav>
-
-      <div class="toolbar-container" fxLayout="column">
-
-
-        <ngdz-scrollbar id="main-scrollbar" class="content-container" fxFlex>
-          <router-outlet (activate)="onActivate()"></router-outlet>
-        </ngdz-scrollbar>
-      </div>
-    </mat-sidenav-container>
-
-  </div>
-
-
-  <!-- <a mat-fab color="accent" (click)="toggleSettings()"  class="mat-fab-bottom-right fixed fab-pad">
-    <mat-icon>settings</mat-icon>
-  </a> -->
-</mat-sidenav-container>
+  <mat-sidenav-container fxFlex fxLayout="Column">
+    <mat-sidenav class="quickpanel-container" (open)="openQuickpanel()" (close)="closeQuickpanel()" [opened]="quickpanelOpen$ | async"
+      align="end" mode="over">
+      <ngdz-quickpanel></ngdz-quickpanel>
+    </mat-sidenav>
+    <mat-sidenav class="sidenav-container" (open)="openSidenav()" (close)="closeSidenav()" [opened]="sidenavOpen$ | async" align="start"
+      [mode]="sidenavMode$ | async" [disableClose]="sidenavDisableClose$ | async">
+      <ngdz-sidenav (toggledSidenavCollapse)="toggleSidenavCollapse()"></ngdz-sidenav>
+    </mat-sidenav>
+    <router-outlet fxFlex (activate)="onActivate()"></router-outlet>
+  </mat-sidenav-container>
+</div>

@@ -58,8 +58,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.sidenavOpen$ = this.store.select(fromRoot.getSidenavOpen);
-    this.sidenavCollapsed$ = this.store.select(fromRoot.getSidenavCollapsed);
-    this.sidenavAlign$ = this.store.select(fromRoot.getSidenavAlign);
+
     this.sidenavMode$ = this.store.select(fromRoot.getSidenavMode);
     this.sidenavDisableClose$ = this.store.select(fromRoot.getSidenavDisableClose);
     this.quickpanelOpen$ = this.store.select(fromRoot.getQuickpanelOpen);
@@ -157,17 +156,11 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onActivate(): void {
-    // if (this.scrollbar) {
-    //   this.scrollbar.setPosition(0, 0);
-    // }
-    // else if (this.scrollContainer && this.scrollContainer.element) {
-    //   this.scrollbar = Scrollbar.get(this.scrollContainer.element.nativeElement);
-    //   this.scrollbar.setPosition(0, 0);
-    // }
+
   }
 
   ngOnDestroy() {
-    this._mediaSubscription.unsubscribe();
+    // this._mediaSubscription!.unsubscribe();
     this._routerEventsSubscription.unsubscribe();
   }
 }

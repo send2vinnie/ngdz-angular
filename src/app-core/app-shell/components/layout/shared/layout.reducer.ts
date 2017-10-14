@@ -19,7 +19,7 @@ const initialState: State = {
   sidenavOpen: false,
   sidenavCollapsed: false,
   sidenavMode: 'over',
-  sidenavDisableClose: true,
+  sidenavDisableClose: false,
   layoutBoxed: false,
   sidenavAlign: 'start',
   quickpanelOpen: false,
