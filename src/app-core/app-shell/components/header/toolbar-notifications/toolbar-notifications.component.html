@@ -1,44 +1,58 @@
-<div class="toolbar-button" fxLayout="row" fxLayoutAlign="start center" (ngdzClickOutside)="onClickOutside()">
-  <button class="icon-button" type="button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
+<div class="toolbar-button" cdkOverlayOrigin #NotifationOverlay="cdkOverlayOrigin" fxLayout="row" fxLayoutAlign="start center">
+  <button class="icon-button redbg" type="button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
     <mat-icon class="icon">notifications_active</mat-icon>
   </button>
-
-  <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
-    <div class="card">
-      <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="title">
-          <div class="name">Notifications</div>
-          <div class="extra">You have {{ notifications.length }} new notifications.</div>
-        </div>
-        <button type="button" mat-icon-button>
-          <mat-icon class="icon">settings</mat-icon>
-        </button>
-      </div>
-      <!-- <ngdz-scrollbar class="content"> -->
-      <div class="content">
-        <div *ngFor="let notification of notifications; let last = last" fxLayout="column" [@listFade]="true">
-          <div class="notification" (click)="markAsRead(notification)" [ngClass]="notification.colorClass" [class.read]="notification.read"
-            fxLayout="row" fxLayoutAlign="start center" matRipple>
-            <mat-icon class="icon">{{ notification.icon }}</mat-icon>
-            <div class="title" fxLayout="column">
-              <div class="name">{{ notification.name }}</div>
-              <div class="time">{{ notification.time }}</div>
-            </div>
-            <span fxFlex></span>
-            <button (click)="dismiss(notification, $event)" type="button" mat-icon-button>
-              <mat-icon class="close">close</mat-icon>
-            </button>
+  <ng-template backdropClass="cdk-overlay-transparent-backdrop" cdkConnectedOverlay hasBackdrop [cdkConnectedOverlayOrigin]="NotifationOverlay"
+    cdk-portal #NotifationPortal="cdkPortal"
+    [positions]="[{ originX: 'start', originY: 'bottom' },{ overlayX: 'end', overlayY: 'top' }]"
+     [cdkConnectedOverlayOpen]="isOpen">
+    <div class="notication-dropdown mat-elevation-z1 open">
+      <div class="card">
+        <div class="header redbg" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="title">
+            <div class="name">Notifications</div>
+            <div class="extra">You have {{ notifications.length }} new notifications.</div>
           </div>
-          <div *ngIf="!last" class="divider"></div>
+          <button type="button" mat-icon-button>
+            <mat-icon class="icon">settings</mat-icon>
+          </button>
         </div>
-        <div class="no-notifications" *ngIf="notifications.length === 0" [@listFade]="true">
-          All fine! No notifications right now.
+        <!-- <ngdz-scrollbar class="content"> -->
+        <div class="content">
+          <div *ngFor="let notification of notifications; let last = last" fxLayout="column" [@listFade]="true">
+            <div class="notification" (click)="markAsRead(notification)" [ngClass]="notification.colorClass" [class.read]="notification.read"
+              fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="icon">{{ notification.icon }}</mat-icon>
+              <div class="title" fxLayout="column">
+                <div class="name">{{ notification.name }}</div>
+                <div class="time">{{ notification.time }}</div>
+              </div>
+              <span fxFlex></span>
+              <button (click)="dismiss(notification, $event)" type="button" mat-icon-button>
+                <mat-icon class="close">close</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="!last" class="divider"></div>
+          </div>
+          <div class="no-notifications" *ngIf="notifications.length === 0" [@listFade]="true">
+            All fine! No notifications right now.
+          </div>
         </div>
-      </div>
-      <!-- </ngdz-scrollbar> -->
-      <div class="footer" fxLayout="row" fxLayoutAlign="center center">
-        <div class="action">Mark all as read</div>
+        <!-- </ngdz-scrollbar> -->
+        <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+          <div class="action">Mark all as read</div>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-template>
+
 </div>
+<!-- <div class="user-button-container" cdkOverlayOrigin #UserOptions="cdkOverlayOrigin">
+  <button class="user-button" mat-button (click)="isOpen = !isOpen" [class.open]="isOpen">
+    TEST
+  </button>
+</div>
+<ng-template  backdropClass="cdk-overlay-transparent-backdrop"  cdkConnectedOverlay hasBackdrop [cdkConnectedOverlayOrigin]="UserOptions"
+  [cdkConnectedOverlayOpen]="isOpen">
+  DS
+</ng-template> -->

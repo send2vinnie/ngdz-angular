@@ -1,4 +1,7 @@
+<ngdz-header [quickpanelOpen]="quickpanelOpen$ | async" (toggledSidenav)="toggleSidenav()" (toggledQuickpanel)="toggleQuickpanel()"></ngdz-header>
+
 <mat-sidenav-container class="layout-container" [ngClass]="cardElevation$ | async">
+
 
   <mat-sidenav class="settings-sidenav" (open)="openSettings()" (close)="closeSettings()" [opened]="settingsOpen$ | async"
     mode="over" align="end" #options>
@@ -6,11 +9,6 @@
   </mat-sidenav>
 
   <div class="layout beta" fxLayout="column" [class.boxed]="layoutBoxed$ | async">
-
-    <!-- Layout Beta -->
-    <ngdz-header   [quickpanelOpen]="quickpanelOpen$ | async" (toggledSidenav)="toggleSidenav()" (toggledQuickpanel)="toggleQuickpanel()"></ngdz-header>
-    <!-- /Layout: Beta -->
-
 
 
     <mat-sidenav-container fxFlex>

@@ -9,9 +9,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { MediaChange } from '@angular/flex-layout';
-import Scrollbar from 'smooth-scrollbar';
+// import Scrollbar from 'smooth-scrollbar';
 import { ScrollbarComponent } from '../../../app-shared/components/scrollbar/scrollbar.component';
-import { MediaReplayService } from '../../../app-shared/utils/media-replay.service';
+// import { MediaReplayService } from '../../../app-shared/utils/media-replay.service';
 
 
 @Component({
@@ -20,9 +20,9 @@ import { MediaReplayService } from '../../../app-shared/utils/media-replay.servi
   styleUrls: ['./layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LayoutComponent  implements OnInit, AfterViewInit, OnDestroy  {
+export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  scrollbar: Scrollbar;
+  // scrollbar: Scrollbar;
 
   layout = 'alpha'; // Layout
 
@@ -44,8 +44,8 @@ export class LayoutComponent  implements OnInit, AfterViewInit, OnDestroy  {
 
   cardElevation$: Observable<string>;
 
-  @ViewChild('scrollContainer')
-  scrollContainer: ScrollbarComponent;
+  // @ViewChild('scrollContainer')
+  // scrollContainer: ScrollbarComponent;
 
   buyNowToolbarVisible = true;
 
@@ -53,7 +53,7 @@ export class LayoutComponent  implements OnInit, AfterViewInit, OnDestroy  {
   private _routerEventsSubscription: Subscription;
 
   constructor(
-    private mediaReplayService: MediaReplayService,
+    // private mediaReplayService: MediaReplayService,
     private router: Router,
     private store: Store<fromRoot.State>,
     private cd: ChangeDetectorRef
@@ -78,22 +78,22 @@ export class LayoutComponent  implements OnInit, AfterViewInit, OnDestroy  {
     });
     /// Layout
 
-    this._mediaSubscription = this.mediaReplayService.media$.subscribe((change: MediaChange) => {
-      const isMobile = (change.mqAlias === 'xs') || (change.mqAlias === 'sm');
+    // this._mediaSubscription = this.mediaReplayService.media$.subscribe((change: MediaChange) => {
+    //   const isMobile = (change.mqAlias === 'xs') || (change.mqAlias === 'sm');
 
-      this.isMobile = isMobile;
-      this.cd.markForCheck();
+    //   this.isMobile = isMobile;
+    //   this.cd.markForCheck();
 
-      if (isMobile || this.layout === 'gamma') {
-        this.closeSidenav();
-        this.setSidenavMode('over');
-        this.setSidenavDisableClose(false);
-      } else {
-        this.openSidenav();
-        this.setSidenavMode('side');
-        this.setSidenavDisableClose(true);
-      }
-    });
+    //   if (isMobile || this.layout === 'gamma') {
+    //     this.closeSidenav();
+    //     this.setSidenavMode('over');
+    //     this.setSidenavDisableClose(false);
+    //   } else {
+    //     this.openSidenav();
+    //     this.setSidenavMode('side');
+    //     this.setSidenavDisableClose(true);
+    //   }
+    // });
 
     this._routerEventsSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -105,7 +105,7 @@ export class LayoutComponent  implements OnInit, AfterViewInit, OnDestroy  {
   }
 
   ngAfterViewInit() {
-    this.scrollbar = Scrollbar.get(this.scrollContainer.element.nativeElement);
+    // this.scrollbar = Scrollbar.get(this.scrollContainer.element.nativeElement);
   }
 
   openSidenav() {
@@ -155,17 +155,18 @@ export class LayoutComponent  implements OnInit, AfterViewInit, OnDestroy  {
   toggleSettings() {
     this.store.dispatch(new layout.ToggleSettingsAction());
     try {
-    //  hopscotch.nextStep();
+      //  hopscotch.nextStep();
     } catch (error) { }
   }
 
   onActivate(): void {
-    if (this.scrollbar) {
-      this.scrollbar.setPosition(0, 0);
-    } else if (this.scrollContainer && this.scrollContainer.element) {
-      this.scrollbar = Scrollbar.get(this.scrollContainer.element.nativeElement);
-      this.scrollbar.setPosition(0, 0);
-    }
+    // if (this.scrollbar) {
+    //   this.scrollbar.setPosition(0, 0);
+    // }
+    // else if (this.scrollContainer && this.scrollContainer.element) {
+    //   this.scrollbar = Scrollbar.get(this.scrollContainer.element.nativeElement);
+    //   this.scrollbar.setPosition(0, 0);
+    // }
   }
 
   ngOnDestroy() {

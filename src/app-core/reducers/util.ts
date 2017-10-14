@@ -11,8 +11,8 @@ import { RouterStateSnapshot, Params } from '@angular/router';
  */
 
 export interface RouterStateUrl {
-  url: string;
-  queryParams: Params;
+  url?: string;
+  queryParams?: Params;
 }
 
 export class NgdzRouterStateSerializer
