@@ -1,21 +1,5 @@
 <div class="sidenav" fxLayout="column">
 
-  <!-- Layout: Alpha -->
-  <div class="header" fxLayout="row" fxLayoutAlign="start center" *ngIf="layout === 'alpha'">
-
-    <img class="logo" alt="logo" src="assets/img/logo2x.png">
-    <span fxFlex></span>
-
-    <div class="actions" fxLayout="row" fxLayoutAlign="start center">
-      <button class="toggle" type="button" mat-icon-button (click)="toggleSidenavCollapse()" *ngIf="collapsed">
-        <mat-icon>radio_button_unchecked</mat-icon>
-      </button>
-      <button class="toggle" type="button" mat-icon-button (click)="toggleSidenavCollapse()" *ngIf="!collapsed">
-        <mat-icon>radio_button_checked</mat-icon>
-      </button>
-    </div>
-  </div>
-  <!-- /Layout: Alpha -->
 
   <ngdz-scrollbar class="menu" fxFlex>
 
@@ -23,7 +7,7 @@
       <div class="name">Navigation</div>
 
       <!-- Layout: Beta -->
-      <div class="actions" *ngIf="layout === 'beta'">
+      <div class="actions">
         <button class="toggle" type="button" mat-icon-button (click)="toggleSidenavCollapse()" *ngIf="collapsed">
           <mat-icon>radio_button_unchecked</mat-icon>
         </button>
@@ -34,9 +18,9 @@
       <!-- /Layout: Beta -->
 
     </div>
-
     <div class="sidenav-item-holder" *ngFor="let item of sidenavItems$ | async">
-      <ngdz-sidenav-item class="sidenav-item-container" [item]="item" [currentlyOpen]="currentlyOpen$ | async" ></ngdz-sidenav-item>
+      <ngdz-sidenav-item class="sidenav-item-container" [item]="item" [currentlyOpen]="currentlyOpen$ | async"></ngdz-sidenav-item>
+
     </div>
 
   </ngdz-scrollbar>

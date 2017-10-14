@@ -24,17 +24,14 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // scrollbar: Scrollbar;
 
-  layout = 'alpha'; // Layout
+  layout = 'default'; // Layout
 
   sidenavOpen$: Observable<boolean>;
-  sidenavCollapsed$: Observable<boolean>;
-  sidenavAlign$: Observable<string>;
   sidenavMode$: Observable<string>;
   sidenavDisableClose$: Observable<boolean>;
 
   quickpanelOpen$: Observable<boolean>;
-  quickpanelAlign = 'end';
-  quickpanelMode = 'over';
+
 
   layoutBoxed$: Observable<boolean>;
 

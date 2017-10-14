@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
-import { SidenavItem } from '../sidenav-item/sidenav-item.model';
-
+import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 export const ADD_SIDENAV_ITEM =   '[Sidenav] Add Item';
+export const ADD_SIDENAV_ITEMS = '[Sidenav] Add Items';
 export const REMOVE_SIDENAV_ITEM =  '[Sidenav] Remove Item';
 export const TOGGLE_OPEN_SIDENAV_ITEM =  '[Sidenav] Toggle Item';
 export const SET_CURRENTLY_OPEN_BY_ROUTE =  '[Sidenav] Set CurrentlyOpen by Route';
@@ -11,6 +11,12 @@ export class AddSidenavItemAction implements Action {
   readonly type = ADD_SIDENAV_ITEM;
 
   constructor(public payload: SidenavItem) { }
+}
+
+export class AddSidenavItemsAction implements Action {
+  readonly type = ADD_SIDENAV_ITEMS;
+
+  constructor(public payload: SidenavItem[]) { }
 }
 
 export class RemoveSidenavItemAction implements Action {
@@ -33,6 +39,7 @@ export class SetCurrentlyOpenByRouteAction implements Action {
 
 export type Actions
   = AddSidenavItemAction
+  | AddSidenavItemsAction
   | RemoveSidenavItemAction
   | ToggleOpenSidenavItemAction
   | SetCurrentlyOpenByRouteAction;

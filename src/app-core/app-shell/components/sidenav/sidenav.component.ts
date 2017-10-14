@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { SidenavItem } from './sidenav-item/sidenav-item.model';
 import { Observable } from 'rxjs/Observable';
-import * as fromRoot from './shared/sidenav.reducer';
+import * as fromRoot from '../../reducers/index';
 import { Store } from '@ngrx/store';
+import { SidenavItem } from '../../../app-shared/utils/sidenav-item.model';
 
 @Component({
   selector: 'ngdz-sidenav',
@@ -20,7 +20,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromRoot.State>
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
     this.sidenavItems$ = this.store.select(fromRoot.getSidenavItems);

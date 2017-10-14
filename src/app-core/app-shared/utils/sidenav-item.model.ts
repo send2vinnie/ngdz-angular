@@ -1,15 +1,20 @@
-export class SidenavItem {
-  name: string;
-  icon: string;
-  route: any;
-  parent: SidenavItem;
-  subItems: SidenavItem[];
-  position: number;
-  badge: string;
-  badgeColor: string;
-  customClass: string;
-  routerLinkActiveOptions: any;
+import { AuthorizationRules } from './authorization-rules';
 
+
+
+export class SidenavItem {
+  name?: string;
+  icon?: string;
+  route?: any;
+  parent?: SidenavItem;
+  subItems?: SidenavItem[];
+  position?: number;
+  badge?: string;
+  badgeColor?: string;
+  customClass?: string;
+  routerLinkActiveOptions?: any;
+
+  authorization?: AuthorizationRules;
   constructor(model: any = null) {
     if (model) {
       this.name = model.name;
@@ -21,6 +26,7 @@ export class SidenavItem {
       this.badge = model.badge;
       this.badgeColor = model.badgeColor;
       this.customClass = model.customClass;
+      this.authorization = model.authorization;
       this.routerLinkActiveOptions = model.routerLinkActiveOptions ? model.routerLinkActiveOptions : { exact: false };
     }
   }

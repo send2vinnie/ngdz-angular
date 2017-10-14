@@ -8,7 +8,7 @@ import { LayoutComponent } from './app-shell/components/layout/layout.component'
 
 export const routes: Routes = [
   {
-    path: '', component: LayoutComponent, children: [...appRoutes]
+    path: '', component: MainShellComponent, children: [...appRoutes]
   },
   {
     path: 'empty', component: EmptyShellComponent, children: [...appRoutes]

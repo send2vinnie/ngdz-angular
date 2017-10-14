@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { SidenavItem } from '../../sidenav/sidenav-item/sidenav-item.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../sidenav/shared/sidenav.reducer';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
+import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 
 @Component({
   selector: 'ngdz-search-bar',
@@ -16,7 +16,7 @@ export class SearchBarComponent implements OnInit {
   input: string;
 
   @ViewChild('inputElem')
-   inputElem: ElementRef;
+  inputElem: ElementRef;
   focused: boolean;
 
   recentlyVisited: SidenavItem[] = [];
@@ -36,7 +36,7 @@ export class SearchBarComponent implements OnInit {
       this.cd.markForCheck();
 
     });
-    console.log(this.inputElem);
+
     // TODO FIX FRO EVENT
 
     // Observable.fromEvent(this.inputElem.nativeElement, 'keyup')

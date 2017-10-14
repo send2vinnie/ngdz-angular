@@ -1,6 +1,6 @@
 import * as sidenav from './sidenav.action';
-import { SidenavItem } from '../sidenav-item/sidenav-item.model';
 import * as _ from 'lodash';
+import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 
 
 export interface State {
@@ -9,14 +9,14 @@ export interface State {
 }
 
 const initialState: State = {
-  sidenavItems: [ ],
-  currentlyOpen: [ ]
+  sidenavItems: [],
+  currentlyOpen: []
 };
 
 export function reducer(state = initialState, action: sidenav.Actions): State {
   switch (action.type) {
     case sidenav.ADD_SIDENAV_ITEM: {
-      const item =  action.payload;
+      const item = action.payload;
 
       if (state.sidenavItems.indexOf(item) > -1) {
         return state;
@@ -26,9 +26,21 @@ export function reducer(state = initialState, action: sidenav.Actions): State {
         sidenavItems: [...state.sidenavItems, item]
       });
     }
+    case sidenav.ADD_SIDENAV_ITEMS: {
+      const items = action.payload;
+      const netItems = [];
+      items.forEach(item => {
+        if (state.sidenavItems.indexOf(item) === -1) {
+          netItems.push(item);
+        }
+      });
 
+      return Object.assign({}, state, {
+        sidenavItems: [...state.sidenavItems, ...netItems]
+      });
+    }
     case sidenav.REMOVE_SIDENAV_ITEM: {
-      const item =  action.payload;
+      const item = action.payload;
 
       return Object.assign({}, state, {
         sidenavItems: state.sidenavItems.filter(stateItem => stateItem !== item)
@@ -43,7 +55,7 @@ export function reducer(state = initialState, action: sidenav.Actions): State {
         if (currentlyOpen.length > 1) {
           currentlyOpen = currentlyOpen.slice(0, currentlyOpen.indexOf(item));
         } else {
-          currentlyOpen = [ ];
+          currentlyOpen = [];
         }
       } else {
         currentlyOpen = getAllParentItems(item);
@@ -56,7 +68,7 @@ export function reducer(state = initialState, action: sidenav.Actions): State {
 
     case sidenav.SET_CURRENTLY_OPEN_BY_ROUTE: {
       const route = action.payload;
-      let currentlyOpen = [ ];
+      let currentlyOpen = [];
       const item = findByRouteRecursive(route, state.sidenavItems);
 
       if (item && item.hasParent()) {
@@ -76,8 +88,8 @@ export function reducer(state = initialState, action: sidenav.Actions): State {
   }
 }
 
-function getAllParentItems(item: SidenavItem, currentlyOpenTemp: SidenavItem[] = [ ]) {
-  currentlyOpenTemp.unshift( item );
+function getAllParentItems(item: SidenavItem, currentlyOpenTemp: SidenavItem[] = []) {
+  currentlyOpenTemp.unshift(item);
 
   if (item.hasParent()) {
     return getAllParentItems(item.parent, currentlyOpenTemp);

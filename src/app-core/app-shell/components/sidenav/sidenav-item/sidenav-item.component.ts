@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SidenavItem } from './sidenav-item.model';
 import * as fromRoot from '../../../reducers/index';
 import * as sidenavAction from '../shared/sidenav.action';
 import { Store } from '@ngrx/store';
+import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 
 @Component({
   selector: 'ngdz-sidenav-item',

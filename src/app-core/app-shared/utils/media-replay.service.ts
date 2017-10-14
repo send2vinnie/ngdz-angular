@@ -15,7 +15,6 @@ export class MediaReplayService {
 
   get media$(): Observable<MediaChange> {
     if (this._media$ == null) { return new ReplaySubject(1); }
-    console.log(this._media$);
     return this._media$.asObservable();
   }
 

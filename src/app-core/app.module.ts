@@ -21,6 +21,7 @@ import { AppSharedModule } from './app-shared/app-shared.module';
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routing.module';
 import { AppComponent } from './app-shell/containers/app/app.component';
+import { AppConfig } from '../modules/app-config';
 @NgModule({
 
 
@@ -61,7 +62,7 @@ import { AppComponent } from './app-shell/containers/app/app.component';
      *
      * See: https://github.com/zalmoxisus/redux-devtools-extension
      */
-    // !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
 
     /**
      * EffectsModule.forRoot() is imported once in the root module and
@@ -80,6 +81,7 @@ import { AppComponent } from './app-shell/containers/app/app.component';
 
   ],
   providers: [
+    AppConfig,
     /**
      * The `RouterStateSnapshot` provided by the `Router` is a large complex structure.
      * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided

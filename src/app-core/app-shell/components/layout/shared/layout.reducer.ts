@@ -15,10 +15,10 @@ export interface State {
 }
 
 const initialState: State = {
-  layout: 'beta',
-  sidenavOpen: true,
+  layout: 'default',
+  sidenavOpen: false,
   sidenavCollapsed: false,
-  sidenavMode: 'side',
+  sidenavMode: 'over',
   sidenavDisableClose: true,
   layoutBoxed: false,
   sidenavAlign: 'start',
@@ -176,19 +176,19 @@ export function reducer(state = initialState, action: layout.Actions): State {
     case layout.OPEN_SETTINGS: {
       return Object.assign({}, state, {
         settingsOpen: true
-      })
+      });
     }
 
     case layout.CLOSE_SETTINGS: {
       return Object.assign({}, state, {
         settingsOpen: false
-      })
+      });
     }
 
     case layout.TOGGLE_SETTINGS: {
       return Object.assign({}, state, {
         settingsOpen: !state.settingsOpen
-      })
+      });
     }
 
     case layout.SET_CARD_ELEVATION: {
@@ -196,7 +196,7 @@ export function reducer(state = initialState, action: layout.Actions): State {
 
       return Object.assign({}, state, {
         cardElevation: elevation
-      })
+      });
     }
 
     default:
