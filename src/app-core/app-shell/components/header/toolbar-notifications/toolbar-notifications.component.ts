@@ -1,10 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { LIST_FADE_ANIMATION } from '../../../../app-shared/utils/list.animation';
-import { Overlay } from '@angular/cdk/overlay';
-import { OverlayConfig } from '@angular/cdk/overlay';
-import { TemplatePortalDirective } from '@angular/cdk/portal';
-import { OverlayOrigin } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'ngdz-toolbar-notifications',
@@ -13,17 +9,13 @@ import { OverlayOrigin } from '@angular/cdk/overlay';
   animations: [...LIST_FADE_ANIMATION]
 })
 export class ToolbarNotificationsComponent implements OnInit {
-  @ViewChild('NotifationPortal') overlayPortal: TemplatePortalDirective;
-  @ViewChild('NotifationOverlay') overlayOrigin: OverlayOrigin;
-
 
   isOpen: boolean;
   notifications: any[];
   demoTriggers = 0;
 
   constructor(
-    private cd: ChangeDetectorRef,
-    public overlay: Overlay
+    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -78,22 +70,8 @@ export class ToolbarNotificationsComponent implements OnInit {
 
 
   toggleDropdown() {
-
     this.isOpen = !this.isOpen;
     this.triggerDemoNotification();
-    console.log(this.overlayPortal);
-  //   const strategy = this.overlay.position()
-  //     .connectedTo(
-  //     this.overlayOrigin.elementRef,
-  //     { originX: 'start', originY: 'bottom' },
-  //     { overlayX: 'end', overlayY: 'top' });
-
-  //   const config = new OverlayConfig({ positionStrategy: strategy });
-  //   config.hasBackdrop = true;
-  // //  config.direction
-  //   const overlayRef = this.overlay.create(config);
-
-  //   overlayRef.attach(this.overlayPortal);
   }
 
   onClickOutside() {

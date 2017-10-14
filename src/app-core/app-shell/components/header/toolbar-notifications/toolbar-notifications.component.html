@@ -1,9 +1,10 @@
-<div class="toolbar-button" cdkOverlayOrigin #NotifationOverlay="cdkOverlayOrigin" fxLayout="row" fxLayoutAlign="start center">
+<div class="toolbar-button"   cdkOverlayOrigin #NotifationOverlay="cdkOverlayOrigin" fxLayout="row" fxLayoutAlign="start center">
   <button class="icon-button redbg" type="button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
     <mat-icon class="icon">notifications_active</mat-icon>
   </button>
-  <ng-template backdropClass="cdk-overlay-transparent-backdrop" cdkConnectedOverlay hasBackdrop [cdkConnectedOverlayOrigin]="NotifationOverlay"
-    cdk-portal #NotifationPortal="cdkPortal"
+  <ng-template backdropClass="cdk-overlay-transparent-backdrop"
+  cdkConnectedOverlay hasBackdrop [cdkConnectedOverlayOrigin]="NotifationOverlay"
+  (backdropClick)="isOpen=false"
     [positions]="[{ originX: 'start', originY: 'bottom' },{ overlayX: 'end', overlayY: 'top' }]"
      [cdkConnectedOverlayOpen]="isOpen">
     <div class="notication-dropdown mat-elevation-z1 open">
@@ -17,7 +18,7 @@
             <mat-icon class="icon">settings</mat-icon>
           </button>
         </div>
-        <!-- <ngdz-scrollbar class="content"> -->
+        <ngdz-scrollbar class="content">
         <div class="content">
           <div *ngFor="let notification of notifications; let last = last" fxLayout="column" [@listFade]="true">
             <div class="notification" (click)="markAsRead(notification)" [ngClass]="notification.colorClass" [class.read]="notification.read"
@@ -38,7 +39,7 @@
             All fine! No notifications right now.
           </div>
         </div>
-        <!-- </ngdz-scrollbar> -->
+        </ngdz-scrollbar>
         <div class="footer" fxLayout="row" fxLayoutAlign="center center">
           <div class="action">Mark all as read</div>
         </div>
@@ -47,12 +48,4 @@
   </ng-template>
 
 </div>
-<!-- <div class="user-button-container" cdkOverlayOrigin #UserOptions="cdkOverlayOrigin">
-  <button class="user-button" mat-button (click)="isOpen = !isOpen" [class.open]="isOpen">
-    TEST
-  </button>
-</div>
-<ng-template  backdropClass="cdk-overlay-transparent-backdrop"  cdkConnectedOverlay hasBackdrop [cdkConnectedOverlayOrigin]="UserOptions"
-  [cdkConnectedOverlayOpen]="isOpen">
-  DS
-</ng-template> -->
+

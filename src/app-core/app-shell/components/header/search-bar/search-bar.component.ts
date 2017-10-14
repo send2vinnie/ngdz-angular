@@ -12,16 +12,17 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-
+  isOpen = false;
   input: string;
 
-  @ViewChild('inputElem') inputElem: ElementRef;
+  @ViewChild('inputElem')
+   inputElem: ElementRef;
   focused: boolean;
 
-  recentlyVisited: SidenavItem[] = [ ];
-  frequentlyVisited: SidenavItem[] = [ ];
-  sidenavItems: SidenavItem[] = [ ];
-  searchResult: SidenavItem[] = [ ];
+  recentlyVisited: SidenavItem[] = [];
+  frequentlyVisited: SidenavItem[] = [];
+  sidenavItems: SidenavItem[] = [];
+  searchResult: SidenavItem[] = [];
 
   constructor(
     private router: Router,
@@ -33,8 +34,11 @@ export class SearchBarComponent implements OnInit {
     this.store.select(fromRoot.getSidenavItems).subscribe((items) => {
       this.sidenavItems = items;
       this.cd.markForCheck();
+
     });
-// TODO FIX FRO EVENT
+    console.log(this.inputElem);
+    // TODO FIX FRO EVENT
+
     // Observable.fromEvent(this.inputElem.nativeElement, 'keyup')
     //   .distinctUntilChanged()
     //   .subscribe(() => {
@@ -103,6 +107,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   openDropdown() {
+    this.cd.markForCheck();
     this.focused = true;
   }
 

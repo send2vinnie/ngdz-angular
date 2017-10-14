@@ -64,60 +64,54 @@ input[type="search"] {
       &:-ms-input-placeholder {  color: rgba(0, 0, 0, 0.87);  }
     }
 
-    .search-dropdown {
-      transform: translateY(0);
-      visibility: visible;
-    }
+
   }
 
 
-  .search-dropdown {
-    background: white;
-    color: $color__text-darkest;
-    position: absolute;
-    top: (($height__toolbar - 36px) / 2) + 36px; // 36px is the height of the search-bar
-    left: 0;
-    width: 100%;
-    z-index: -1;
-    transform: translateY(-110%);
-    visibility: hidden;
-    transition: transform .4s cubic-bezier(.25,.8,.25,1), visibility .4s cubic-bezier(.25,.8,.25,1);
 
-    .content {
-      padding: 16px;
-      font-size: 14px;
+}
+.search-dropdown {
+  margin-top: 12px;
+  background: white !important;
+  color: $color__text-darkest;
+  width: 100%;
+  z-index: -1;transform: translateY(0);
+  visibility: visible;
+  transition: transform .4s cubic-bezier(.25,.8,.25,1), visibility .4s cubic-bezier(.25,.8,.25,1);
 
-      .heading {
-        font-size: 13px;
-        color: #888;
-        margin-bottom: 2px;
+  .content {
+    padding: 16px;
+    font-size: 14px;
 
-        .icon {
-          font-size: 20px;
-          height: 20px;
-          width: 20px;
-          line-height: 20px;
-          margin-right: 6px;
-        }
+    .heading {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 2px;
+
+      .icon {
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        line-height: 20px;
+        margin-right: 6px;
       }
+    }
 
-      .items {
-        .item {
-          position: relative;
-          padding: 8px 0 6px 26px;
-          margin: 2px 0;
-          cursor: pointer;
-          transition: background .1s;
-          outline: none;
+    .items {
+      .item {
+        position: relative;
+        padding: 8px 0 6px 26px;
+        margin: 2px 0;
+        cursor: pointer;
+        transition: background .1s;
+        outline: none;
 
-          &:hover {
-            background: #EFEFEF;
-          }
+        &:hover {
+          background: #EFEFEF;
         }
       }
     }
   }
 }
-
 
 
