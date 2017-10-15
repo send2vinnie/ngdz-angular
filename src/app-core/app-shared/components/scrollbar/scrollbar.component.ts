@@ -1,5 +1,5 @@
 import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
-import Scrollbar from 'smooth-scrollbar';
+// import Scrollbar from 'smooth-scrollbar';
 
 export const scrollbarOptions = {
   speed: 1,
@@ -21,7 +21,7 @@ export const scrollbarOptions = {
 })
 export class ScrollbarComponent implements OnInit {
 
-  scrollbarRef: Scrollbar;
+  // scrollbarRef: Scrollbar;
   element: ElementRef;
 
   constructor(
@@ -35,7 +35,7 @@ export class ScrollbarComponent implements OnInit {
     const options = scrollbarOptions;
 
     this.zone.runOutsideAngular(() => {
-      this.scrollbarRef = Scrollbar.init(this.element.nativeElement, options);
+      // this.scrollbarRef = Scrollbar.init(this.element.nativeElement, options);
     });
   }
 }

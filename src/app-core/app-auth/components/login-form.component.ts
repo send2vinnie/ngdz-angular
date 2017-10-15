@@ -1,70 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Authenticate } from '../models/user';
 
 @Component({
   selector: 'ngdz-login-form',
-  template: `
-    <mat-card>
-      <mat-card-title>Login</mat-card-title>
-      <mat-card-content>
-        <form [formGroup]="form" (ngSubmit)="submit()">
-          <p>
-            <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="username">
-            </mat-form-field>
-          </p>
-
-          <p>
-            <mat-form-field>
-              <input type="password" matInput placeholder="Password" formControlName="password">
-            </mat-form-field>
-          </p>
-
-          <p *ngIf="errorMessage" class="loginError">
-            {{ errorMessage }}
-          </p>
-
-          <p class="loginButtons">
-            <button type="submit" mat-button>Login</button>
-          </p>
-
-        </form>
-      </mat-card-content>
-    </mat-card>
-  `,
-  styles: [
-    `
-    :host {
-      display: flex;
-      justify-content: center;
-      margin: 72px 0;
-    }
-
-    mat-card-title,
-    mat-card-content {
-      display: flex;
-      justify-content: center;
-    }
-
-    input {
-      width: 300px;
-    }
-
-    .loginError {
-      padding: 16px;
-      width: 300px;
-      font-color: white;
-      background-color: red;
-    }
-
-    .loginButtons {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-    }
-  `,
-  ],
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
   @Input()
@@ -80,16 +21,22 @@ export class LoginFormComponent implements OnInit {
 
   @Output() submitted = new EventEmitter<Authenticate>();
 
-  form: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-  });
+  form: FormGroup;
 
-  constructor() {}
+  constructor(
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({ // <-- the parent FormGroup
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
 
-  ngOnInit() {}
+  }
+
+  ngOnInit() { }
 
   submit() {
+
     if (this.form.valid) {
       this.submitted.emit(this.form.value);
     }

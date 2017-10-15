@@ -1,0 +1,58 @@
+<!-- <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <p>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Username" formControlName="username">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <input type="password" matInput placeholder="Password" formControlName="password">
+                </mat-form-field>
+            </p>
+
+            <p *ngIf="errorMessage" class="loginError">
+                {{ errorMessage }}
+            </p>
+
+            <p class="loginButtons">
+                <button type="submit" mat-button>Login</button>
+            </p>
+
+        </form>
+    </mat-card-content>
+</mat-card> -->
+
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;">
+    <div class="login mat-elevation-z12">
+        <div class="login-header  mat-elevation-z3" fxLayout="column" fxLayoutAlign="center center">
+            <!-- <img class="logo" src="assets/img/logo2x.png"> -->
+            <h2 class="logo">NGDZ</h2>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="login-content" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-form-field>
+                    <input type="text" required matInput placeholder="Username" formControlName="username">
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="password" required matInput placeholder="Password" formControlName="password">
+                </mat-form-field>
+                <div class="extra-options" fxLayout="row" fxLayoutAlign="space-between center">
+                    <mat-checkbox class="remember-me">Remember Me</mat-checkbox>
+                    <a class="forgot-password" [routerLink]="['/auth/forgot-password']">Forgot Password?</a>
+                </div>
+                <p *ngIf="errorMessage" class="alert is-critical">
+                    {{ errorMessage }}
+                </p>
+                <button color="primary" mat-raised-button [disabled]="form.pristine||!form.valid">SIGN IN</button>
+                <p class="note">Don't have an account?
+                    <br/>
+                    <a [routerLink]="['/auth/register']">Click here to create one</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
