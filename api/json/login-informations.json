@@ -1,0 +1,47 @@
+{
+    "result": {
+        "user": {
+            "name": "admin",
+            "surname": "admin",
+            "userName": "admin",
+            "emailAddress": "demo@aspnetzero.com",
+            "profilePictureId": "8711eb3a-ec7d-2f0c-211e-39e23cee3f1d",
+            "id": 217126
+        },
+        "tenant": {
+            "tenancyName": "badre429",
+            "name": "badre429",
+            "logoId": null,
+            "logoFileType": null,
+            "customCssId": null,
+            "subscriptionEndDateUtc": null,
+            "isInTrialPeriod": false,
+            "edition": {
+                "displayName": "Standard",
+                "trialDayCount": null,
+                "monthlyPrice": null,
+                "annualPrice": null,
+                "isHighestEdition": false,
+                "isFree": true,
+                "id": 1
+            },
+            "creationTime": "2017-10-17T17:33:58.0250944",
+            "paymentPeriodType": 0,
+            "subscriptionDateString": "Unlimited",
+            "creationTimeString": "2017/10/17",
+            "id": 11369
+        },
+        "application": {
+            "version": "4.4.0.0",
+            "releaseDate": "2017-08-28T16:03:18.5727642+03:00",
+            "features": {
+                "SignalR": true
+            }
+        }
+    },
+    "targetUrl": null,
+    "success": true,
+    "error": null,
+    "unAuthorizedRequest": false,
+    "__abp": true
+}
