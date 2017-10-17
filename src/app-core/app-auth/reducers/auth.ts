@@ -1,26 +1,33 @@
 import * as auth from '../actions/auth';
-import { User } from '../models/user';
+import { ProfileModel } from '../models/profile-model';
+import { AuthService } from '../services/auth.service';
 
 export interface State {
   loggedIn: boolean;
-  user: User | null;
+  profile: ProfileModel | null;
 }
 
 export const initialState: State = {
   loggedIn: false,
-  user: null,
+  profile: null,
 };
 
 export function reducer(state = initialState, action: auth.Actions): State {
   switch (action.type) {
     case auth.LOGIN_SUCCESS: {
+
       return {
         ...state,
-        loggedIn: true,
-        user: action.payload.user,
+        loggedIn: true
+        // user: action.payload.user,
       };
     }
-
+    case auth.UPDATE_PROFILE: {
+      return {
+        ...state,
+        profile: action.payload
+      };
+    }
     case auth.LOGOUT: {
       return initialState;
     }
@@ -32,4 +39,4 @@ export function reducer(state = initialState, action: auth.Actions): State {
 }
 
 export const getLoggedIn = (state: State) => state.loggedIn;
-export const getUser = (state: State) => state.user;
+export const getProfile = (state: State) => state.profile;

@@ -47,7 +47,7 @@
                 <p *ngIf="errorMessage" class="alert is-critical">
                     {{ errorMessage }}
                 </p>
-                <button color="primary" mat-raised-button [disabled]="form.pristine||!form.valid">SIGN IN</button>
+                <button color="primary" mat-raised-button [disabled]="!form.valid">SIGN IN</button>
                 <p class="note">Don't have an account?
                     <br/>
                     <a [routerLink]="['/auth/register']">Click here to create one</a>

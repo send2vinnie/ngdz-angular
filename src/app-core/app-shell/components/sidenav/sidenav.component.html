@@ -20,7 +20,7 @@
     </div>
     <div class="sidenav-item-holder" *ngFor="let item of sidenavItems$ | async">
       <ngdz-sidenav-item class="sidenav-item-container" [item]="item" [currentlyOpen]="currentlyOpen$ | async"></ngdz-sidenav-item>
-      <mat-divider></mat-divider>
+      <hr class="no-margin">
     </div>
 
   </ngdz-scrollbar>

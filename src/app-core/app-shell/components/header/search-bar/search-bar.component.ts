@@ -1,10 +1,14 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as fromRoot from '../../sidenav/shared/sidenav.reducer';
+import * as fromRoot from '../../../reducers';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Observable';
+
+
 import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
+import { Subject } from 'rxjs/Subject';
+
+
 
 @Component({
   selector: 'ngdz-search-bar',
@@ -13,7 +17,16 @@ import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 })
 export class SearchBarComponent implements OnInit {
   isOpen = false;
-  input: string;
+  input$: Subject<string> = new Subject<string>();
+
+  private _input: string;
+  public get input(): string {
+    return this._input;
+  }
+  public set input(v: string) {
+    this.input$.next(v);
+    this._input = v;
+  }
 
   @ViewChild('inputElem')
   inputElem: ElementRef;
@@ -31,38 +44,28 @@ export class SearchBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.store.select(fromRoot.getSidenavItems).subscribe((items) => {
       this.sidenavItems = items;
       this.cd.markForCheck();
 
     });
 
-    // TODO FIX FRO EVENT
 
-    // Observable.fromEvent(this.inputElem.nativeElement, 'keyup')
-    //   .distinctUntilChanged()
-    //   .subscribe(() => {
-    //     if (this.inputElem.nativeElement.value !== '') {
-    //       this.searchResult = _.filter(this.sidenavItems, (item) => {
-    //         return item.name.toLowerCase().includes(this.inputElem.nativeElement.value)
-    //       });
+    this.input$.subscribe(value => {
+      this.searchResult = _.filter(this.sidenavItems, (item) => {
+        return item.name.toLowerCase().includes(value.toLowerCase());
+      });
+      console.log('search', value, this.sidenavItems, this.searchResult);
 
-    //       this.cd.markForCheck();
-    //     }
-    //   });
+    });
 
     // Start Demo Data - You can safely remove this
     this.recentlyVisited.push(this.findByRouteRecursive('/'));
-    this.recentlyVisited.push(this.findByRouteRecursive('/apps/chat'));
-    this.recentlyVisited.push(this.findByRouteRecursive('/tables/table-pagination'));
-    this.recentlyVisited.push(this.findByRouteRecursive('/forms/form-elements'));
-    this.recentlyVisited.push(this.findByRouteRecursive('/pages/profile'));
+    this.recentlyVisited.push(this.findByRouteRecursive('/login'));
 
-    this.frequentlyVisited.push(this.findByRouteRecursive('/forms/form-wizard'));
-    this.frequentlyVisited.push(this.findByRouteRecursive('/apps/inbox'));
-    this.frequentlyVisited.push(this.findByRouteRecursive('/tables/table-sorting'));
-    this.frequentlyVisited.push(this.findByRouteRecursive('/editor'));
-    this.frequentlyVisited.push(this.findByRouteRecursive('/maps/google-maps'));
+    this.frequentlyVisited.push(this.findByRouteRecursive('/test'));
+    this.frequentlyVisited.push(this.findByRouteRecursive(''));
     // End Demo Data - You can safely remove this
 
     this.router.events.subscribe((event) => {

@@ -1,24 +1,27 @@
-<div class="toolbar-button"   cdkOverlayOrigin #NotifationOverlay="cdkOverlayOrigin" fxLayout="row" fxLayoutAlign="start center">
-  <button class="icon-button redbg" type="button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
-    <mat-icon class="icon">notifications_active</mat-icon>
+<div class="toolbar-button" cdkOverlayOrigin #NotifationOverlay="cdkOverlayOrigin"  fxLayoutAlign="center center" fxLayoutAlign="start center">
+  <button class="icon-button redbg" type="button" mat-button (click)="toggleDropdown()"  [class.open]="isOpen">
+    <div class="icon"  fxLayoutAlign="center center" >
+      <mat-icon  fxLayoutAlign="center center" >notifications_active</mat-icon>
+      <span *ngIf="notifications.length>0" class="badge mat-elevation-z1">{{notifications.length}}</span>
+    </div>
   </button>
-  <ng-template backdropClass="cdk-overlay-transparent-backdrop"
-  cdkConnectedOverlay hasBackdrop [cdkConnectedOverlayOrigin]="NotifationOverlay"
-  (backdropClick)="isOpen=false"
-    [positions]="[{ originX: 'start', originY: 'bottom' },{ overlayX: 'end', overlayY: 'top' }]"
-     [cdkConnectedOverlayOpen]="isOpen">
-    <div class="notication-dropdown mat-elevation-z1 open">
-      <div class="card">
-        <div class="header redbg" fxLayout="row" fxLayoutAlign="space-between center">
-          <div class="title">
-            <div class="name">Notifications</div>
-            <div class="extra">You have {{ notifications.length }} new notifications.</div>
-          </div>
-          <button type="button" mat-icon-button>
-            <mat-icon class="icon">settings</mat-icon>
-          </button>
+
+</div>
+<ng-template backdropClass="cdk-overlay-transparent-backdrop" cdkConnectedOverlay hasBackdrop [cdkConnectedOverlayOrigin]="NotifationOverlay"
+  (backdropClick)="isOpen=false" [positions]="[{ originX: 'start', originY: 'bottom' },{ overlayX: 'ePnd', overlayY: 'top' }]"
+  [cdkConnectedOverlayOpen]="isOpen">
+  <div class="notication-dropdown mat-elevation-z1 open">
+    <div class="card">
+      <div class="header redbg" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="title">
+          <div class="name">Notifications</div>
+          <div class="extra">You have {{ notifications.length }} new notifications.</div>
         </div>
-        <ngdz-scrollbar class="content">
+        <button type="button" mat-icon-button>
+          <mat-icon class="icon">settings</mat-icon>
+        </button>
+      </div>
+      <ngdz-scrollbar class="content">
         <div class="content">
           <div *ngFor="let notification of notifications; let last = last" fxLayout="column" [@listFade]="true">
             <div class="notification" (click)="markAsRead(notification)" [ngClass]="notification.colorClass" [class.read]="notification.read"
@@ -39,13 +42,10 @@
             All fine! No notifications right now.
           </div>
         </div>
-        </ngdz-scrollbar>
-        <div class="footer" fxLayout="row" fxLayoutAlign="center center">
-          <div class="action">Mark all as read</div>
-        </div>
+      </ngdz-scrollbar>
+      <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+        <div class="action">Mark all as read</div>
       </div>
     </div>
-  </ng-template>
-
-</div>
-
+  </div>
+</ng-template>

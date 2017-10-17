@@ -1,4 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import * as Auth from '../../../../app-auth/actions/auth';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../reducers';
 
 @Component({
   selector: 'ngdz-toolbar-user-button',
@@ -9,7 +12,9 @@ export class ToolbarUserButtonComponent implements OnInit, AfterViewInit {
 
   isOpen: boolean;
 
-  constructor() { }
+  constructor(
+    private store: Store<fromRoot.State>
+  ) { }
 
   ngOnInit() {
   }
@@ -22,6 +27,8 @@ export class ToolbarUserButtonComponent implements OnInit, AfterViewInit {
   }
 
   logout() {
+
+    this.store.dispatch(new Auth.Logout());
     // TODO Implement user logout logic
   }
 }

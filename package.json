@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -sm  --proxy-config ./api/proxy.config.json",
+    "api": "node api/server.js",    
     "build": "ng build --prod -sm --build-optimizer",
     "test": "ng test",
     "lint": "ng lint",
@@ -29,6 +30,7 @@
     "@ngrx/router-store": "^4.0.4",
     "@ngrx/store": "^4.0.3",
     "@ngrx/store-devtools": "^4.0.0",
+    "@auth0/angular-jwt": "^1.0.0-beta.9",
     "@types/hammerjs": "^2.0.35",
     "@types/lodash": "^4.14.77",
     "breeze-bridge-angular": "^4.0.1",

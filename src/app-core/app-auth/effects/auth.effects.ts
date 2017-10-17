@@ -20,19 +20,36 @@ export class AuthEffects {
     .exhaustMap(auth =>
       this.authService
         .login(auth)
-        .map(user => new Auth.LoginSuccess({ user }))
+        .map(token => new Auth.LoginSuccess(token))
         .catch(error => of(new Auth.LoginFailure(error)))
     );
 
+  // update profile from login token
+  @Effect()
+  loginProfile$ = this.actions$
+    .ofType(Auth.LOGIN_SUCCESS)
+    .map((action: Auth.LoginSuccess) =>
+      new Auth.UpdateProfile(this.authService.decodeToken(action.payload)));
+
   @Effect({ dispatch: false })
-  loginSuccess$ = this.actions$
+  loginSuccessNavigation$ = this.actions$
     .ofType(Auth.LOGIN_SUCCESS)
     .do(() => this.router.navigate(['/']));
 
+
   @Effect({ dispatch: false })
-  loginRedirect$ = this.actions$
+  loginSuccessLoadApplicationState$ = this.actions$
+    .ofType(Auth.LOGIN_SUCCESS)
+    .do(() => {
+      console.log('Information Application Loading....');
+    });
+
+
+  @Effect({ dispatch: false })
+  loginRedirectNavigation$ = this.actions$
     .ofType(Auth.LOGIN_REDIRECT, Auth.LOGOUT)
     .do(authed => {
+      this.authService.deleteTokens();
       this.router.navigate(['/login']);
     });
 
@@ -40,5 +57,7 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+
+  }
 }

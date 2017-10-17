@@ -27,8 +27,8 @@ export class LoginFormComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({ // <-- the parent FormGroup
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['test', Validators.required],
+      password: ['test', Validators.required]
     });
 
   }
