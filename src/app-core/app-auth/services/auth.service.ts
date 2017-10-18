@@ -10,6 +10,8 @@ import { AuthTokenModel } from '../models/auth-tokens-model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ProfileModel } from '../models/profile-model';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {

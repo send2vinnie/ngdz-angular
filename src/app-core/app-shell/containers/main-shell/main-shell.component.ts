@@ -20,8 +20,7 @@ import { SetCurrentlyOpenByRouteAction } from '../../components/sidenav/shared/s
 })
 
 export class MainShellComponent implements OnInit {
-  showSidenav$: Observable<boolean>;
-  loggedIn$: Observable<boolean>;
+
 
   constructor(
     private menuService: MenuService,
@@ -31,8 +30,7 @@ export class MainShellComponent implements OnInit {
      * Selectors can be applied with the `select` operator which passes the state
      * tree to the provided selector
      */
-    this.showSidenav$ = this.store.select(fromRoot.getSidenavOpen);
-    this.loggedIn$ = this.store.select(fromAuth.getLoggedIn);
+
   }
 
   ngOnInit(): void {
@@ -45,8 +43,4 @@ export class MainShellComponent implements OnInit {
   }
 
 
-  logout() {
-
-    this.store.dispatch(new Auth.Logout());
-  }
 }
