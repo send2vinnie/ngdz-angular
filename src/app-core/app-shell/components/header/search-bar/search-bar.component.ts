@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers';
@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 
 import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 
 
@@ -15,10 +16,10 @@ import { Subject } from 'rxjs/Subject';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
   isOpen = false;
   input$: Subject<string> = new Subject<string>();
-
+  Subscriptions: Subscription[] = [];
   private _input: string;
   public get input(): string {
     return this._input;
@@ -43,22 +44,25 @@ export class SearchBarComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) { }
 
+  ngOnDestroy(): void {
+    this.Subscriptions.forEach(s => s.unsubscribe());
+  }
   ngOnInit() {
 
-    this.store.select(fromRoot.getSidenavItems).subscribe((items) => {
+    this.Subscriptions.push(this.store.select(fromRoot.getSidenavItems).subscribe((items) => {
       this.sidenavItems = items;
       this.cd.markForCheck();
 
-    });
+    }));
 
 
-    this.input$.subscribe(value => {
+    this.Subscriptions.push(this.input$.subscribe(value => {
       this.searchResult = _.filter(this.sidenavItems, (item) => {
         return item.name.toLowerCase().includes(value.toLowerCase());
       });
       console.log('search', value, this.sidenavItems, this.searchResult);
 
-    });
+    }));
 
     // Start Demo Data - You can safely remove this
     this.recentlyVisited.push(this.findByRouteRecursive('/'));
@@ -68,7 +72,7 @@ export class SearchBarComponent implements OnInit {
     this.frequentlyVisited.push(this.findByRouteRecursive(''));
     // End Demo Data - You can safely remove this
 
-    this.router.events.subscribe((event) => {
+    this.Subscriptions.push(this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
 
         const item = this.findByRouteRecursive(event.urlAfterRedirects);
@@ -87,7 +91,7 @@ export class SearchBarComponent implements OnInit {
         this.cd.markForCheck();
       }
 
-    });
+    }));
   }
 
   findByRouteRecursive(route: string, collection: SidenavItem[] = this.sidenavItems) {

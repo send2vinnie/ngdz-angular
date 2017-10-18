@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../reducers';
@@ -10,6 +10,7 @@ import * as Auth from '../../../app-auth/actions/auth';
 import { MenuService } from '../../services/menu.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { SetCurrentlyOpenByRouteAction } from '../../components/sidenav/shared/sidenav.action';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -19,8 +20,10 @@ import { SetCurrentlyOpenByRouteAction } from '../../components/sidenav/shared/s
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class MainShellComponent implements OnInit {
+export class MainShellComponent implements OnInit, OnDestroy {
 
+
+  Subscriptions: Subscription[] = [];
 
   constructor(
     private menuService: MenuService,
@@ -34,13 +37,16 @@ export class MainShellComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
+    this.Subscriptions.push(this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.store.dispatch(new SetCurrentlyOpenByRouteAction(event.urlAfterRedirects));
       }
-    });
+    }));
     this.menuService.LoadMenus();
   }
+  ngOnDestroy(): void {
 
+    this.Subscriptions.forEach(s => s.unsubscribe());
+  }
 
 }

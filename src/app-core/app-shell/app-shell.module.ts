@@ -25,12 +25,15 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SidenavItemComponent } from './components/sidenav/sidenav-item/sidenav-item.component';
 import { SidenavCollapseDirective } from './components/sidenav/sidenav-collapse.directive';
 import { MenuService } from './services/menu.service';
+import { EffectsModule } from '@ngrx/effects';
+import { AppShellEffects } from './effects/app-shell.effects';
 
 @NgModule({
   imports: [
     AppSharedModule,
     RouterModule.forChild([]),
-    StoreModule.forFeature('shell', reducers)
+    StoreModule.forFeature('shell', reducers),
+    EffectsModule.forFeature([AppShellEffects]),
   ],
   declarations: [
     MainShellComponent,

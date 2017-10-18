@@ -24,6 +24,9 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // scrollbar: Scrollbar;
 
+
+  Subscriptions: Subscription[] = [];
+
   layout = 'default'; // Layout
 
   sidenavOpen$: Observable<boolean>;
@@ -68,10 +71,10 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Layout
     // tslint:disable-next-line:no-shadowed-variable
-    this.store.select(fromRoot.getLayout).subscribe((layout) => {
+    this.Subscriptions.push(this.store.select(fromRoot.getLayout).subscribe((layout) => {
       this.layout = layout;
       this.cd.markForCheck();
-    });
+    }));
     /// Layout
 
     // this._mediaSubscription = this.mediaReplayService.media$.subscribe((change: MediaChange) => {
@@ -91,13 +94,13 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     //   }
     // });
 
-    this._routerEventsSubscription = this.router.events.subscribe((event) => {
+    this.Subscriptions.push(this._routerEventsSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (this.isMobile) {
           this.closeSidenav();
         }
       }
-    });
+    }));
   }
 
   ngAfterViewInit() {
@@ -160,7 +163,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this._mediaSubscription!.unsubscribe();
-    this._routerEventsSubscription.unsubscribe();
+    // this._mediaSubscription!.unsubscribe(); 
+    this.Subscriptions.forEach(s => s.unsubscribe());
   }
 }
