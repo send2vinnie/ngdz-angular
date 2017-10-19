@@ -61,6 +61,9 @@ export class AuthService {
   public saveToken(tokens: AuthTokenModel) {
     localStorage.setItem('auth-tokens', JSON.stringify(tokens));
   }
+  public getToken(): AuthTokenModel {
+    return JSON.parse(localStorage.getItem('auth-tokens')) as AuthTokenModel;
+  }
   public decodeToken(tokens): ProfileModel {
     const profile = this.jwt.decodeToken(tokens.id_token ? tokens.id_token : '') as ProfileModel;
     console.log(profile);
@@ -109,48 +112,29 @@ export class AuthService {
     //   });
   }
   // Schedule Refresh token Before its expirations
-  public scheduleRefresh(): void {
-    // const source = this.store.select(state => state.auth.authTokens)
-    //   .take(1)
-    //   .flatMap((tokens: AuthTokenModel) => {
-    //     // the interval is how long inbetween token refreshes
+  public intervalRefresh(tokens: AuthTokenModel): number {
+    // the interval is how long inbetween token refreshes
     //     // here we are taking half of the time it takes to expired
     //     // you may want to change how this time interval is calculated
-    //     const interval = tokens.expires_in ? (tokens.expires_in / 2 * 1000) : 0;
-    //     return Observable.interval(interval);
-    //   });
-
-    // this.refreshSubscription$ = source.subscribe(() => {
-    //   this.refreshTokens()
-    //     .subscribe();
-    // });
+    return tokens.expires_in ? (tokens.expires_in / 2 * 1000) : 0;
   }
 
   public deleteTokens() {
     localStorage.removeItem('auth-tokens');
-    // this.store.dispatch(this.authTokenActions.delete());
-  }
-  // detach subscrtion to refresh token
-  public unsubscribeRefresh() {
-    if (this.refreshSubscription$) {
-      this.refreshSubscription$.unsubscribe();
-    }
   }
 
-  public refreshTokens(): Observable<Response> {
-    // return this.store.select(state => state.auth.authTokens)
-    //   .first()
-    //   .flatMap((tokens: any) => {
-    //     return this.getTokens({ refresh_token: tokens.refresh_token }, 'refresh_token')
-    //       // This should only happen if the refresh token has expired
-    //       .catch((error: any) => {
-    //         // let the app know that we cant refresh the token
-    //         // which means something is invalid and they aren't logged in
-    //         this.loggedInActions.notLoggedIn();
-    //         return Observable.throw('Session Expired');
-    //       });
-    //   });
-    return null;
+
+  public refreshTokens(tokens: AuthTokenModel): Observable<AuthTokenModel> {
+
+    return this.getTokens({ refresh_token: tokens.refresh_token }, 'refresh_token')
+      // This should only happen if the refresh token has expired
+      .catch((error: any) => {
+        // let the app know that we cant refresh the token
+        // which means something is invalid and they aren't logged in
+        return _throw('Session Expired');
+      });
+
+
   }
   private encodeObjectToParams(obj: any): string {
     return Object.keys(obj)
