@@ -37,12 +37,15 @@ export class MainShellComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new Auth.LoadInitialState());
     this.Subscriptions.push(this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.store.dispatch(new SetCurrentlyOpenByRouteAction(event.urlAfterRedirects));
       }
     }));
+
     this.menuService.LoadMenus();
+
   }
   ngOnDestroy(): void {
 

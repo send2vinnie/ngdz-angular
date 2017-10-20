@@ -3,13 +3,15 @@ import { ProfileModel } from '../models/profile-model';
 import { AuthService } from '../services/auth.service';
 
 export interface State {
-  loggedIn: boolean;
+  loggedIn: boolean | null;
   profile: ProfileModel | null;
+  deniedUrl: string | null;
 }
 
 export const initialState: State = {
-  loggedIn: false,
+  loggedIn: null,
   profile: null,
+  deniedUrl: null
 };
 
 export function reducer(state = initialState, action: auth.Actions): State {
@@ -18,8 +20,8 @@ export function reducer(state = initialState, action: auth.Actions): State {
 
       return {
         ...state,
-        loggedIn: true
-        // user: action.payload.user,
+        loggedIn: true,
+        profile: action.payload,
       };
     }
     case auth.UPDATE_PROFILE: {
@@ -28,10 +30,20 @@ export function reducer(state = initialState, action: auth.Actions): State {
         profile: action.payload
       };
     }
+    case auth.NOT_LOGGED_IN:
     case auth.LOGOUT: {
-      return initialState;
+      return {
+        ...initialState,
+        loggedIn: false
+      };
     }
 
+    case auth.UNAUTHORISED_ACCESS: {
+      return {
+        ...initialState,
+        deniedUrl: action.payload
+      };
+    }
     default: {
       return state;
     }
@@ -39,4 +51,5 @@ export function reducer(state = initialState, action: auth.Actions): State {
 }
 
 export const getLoggedIn = (state: State) => state.loggedIn;
+export const getDeniedUrl = (state: State) => state.deniedUrl;
 export const getProfile = (state: State) => state.profile;

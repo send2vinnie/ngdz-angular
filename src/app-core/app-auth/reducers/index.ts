@@ -27,6 +27,10 @@ export const getLoggedIn = createSelector(
   selectAuthStatusState,
   fromAuth.getLoggedIn
 );
+export const getDeniedUrl = createSelector(
+  selectAuthStatusState,
+  fromAuth.getDeniedUrl
+);
 export const getProfile = createSelector(selectAuthStatusState, fromAuth.getProfile);
 
 export const selectLoginPageState = createSelector(

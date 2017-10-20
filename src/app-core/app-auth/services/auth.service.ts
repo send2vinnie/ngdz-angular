@@ -52,7 +52,7 @@ export class AuthService {
       .map((tokens: AuthTokenModel) => {
         const now = new Date();
         tokens.expiration_date =
-          new Date(now.getTime() + (tokens.expires_in ? (tokens.expires_in * 1000) : 0)).getTime().toString();
+          new Date(now.getTime() + (tokens.expires_in ? (tokens.expires_in * 1000) : 0)).getTime();
         return tokens;
       });
 
@@ -73,50 +73,19 @@ export class AuthService {
     return of(true);
   }
 
-  // Refresh the old login state
-  // this has to be called on the application component startup(App-Compoenent on init)
-  //
-  public startupTokenRefresh() {
-    // const tokensString = localStorage.getItem('auth-tokens');
-    // const tokensModel = tokensString === null ? null : JSON.parse(tokensString);
-    // return Observable.of(tokensModel)
-    //   .flatMap(tokens => {
-    //     // check if the token is even if localStorage, if it isn't tell them it's not and return
-    //     if (!tokens) {
-    //       this.store.dispatch(this.authReadyActions.ready());
-    //       return Observable.throw('No token in Storage');
-    //     }
-    //     this.store.dispatch(this.authTokenActions.load(tokens));
-
-    //     // the "+" below is to convert "tokens.expiration_date" to a number so we can compare
-    //     if (+tokens.expiration_date > new Date().getTime()) {
-    //       // grab the profile out so we can store it
-    //       const profile: ProfileModel = this.jwtHelper.decodeToken(tokens.id_token);
-    //       this.store.dispatch(this.profileActions.load(profile));
-
-    //       // we can let the app know that we're good to go ahead of time
-    //       this.store.dispatch(this.loggedInActions.loggedIn());
-    //       this.store.dispatch(this.authReadyActions.ready());
-    //     }
-
-    //     return this.refreshTokens()
-    //       .map(() => {
-    //         this.scheduleRefresh();
-    //       });
-
-    //   })
-    //   .catch(error => {
-    //     this.store.dispatch(this.loggedInActions.notLoggedIn());
-    //     this.store.dispatch(this.authReadyActions.ready());
-    //     return Observable.throw(error);
-    //   });
-  }
-  // Schedule Refresh token Before its expirations
+  // Time before refresh
   public intervalRefresh(tokens: AuthTokenModel): number {
     // the interval is how long inbetween token refreshes
     //     // here we are taking half of the time it takes to expired
     //     // you may want to change how this time interval is calculated
-    return tokens.expires_in ? (tokens.expires_in / 2 * 1000) : 0;
+    const interval = tokens.expiration_date - new Date().getTime();
+
+    return interval * 0.75;
+
+  }
+  public requireRefresh(tokens: AuthTokenModel) {
+    const interval = this.intervalRefresh(tokens);
+    return interval <= 0.30 * (tokens.expires_in ? (tokens.expires_in * 1000) : 0);
   }
 
   public deleteTokens() {
