@@ -12,7 +12,7 @@ export class AbpService {
   ) {
     this.abp$ = this.store.select(fromApp.getAppConfig).map(o => <AbpConfig>o);
 
-    this.abp$.do(o => console.log('start abp serve:', o)).subscribe(config => this.abp = config);
+    this.abp$.do(o => console.warn('start abp serve:', o)).subscribe(config => this.abp = config);
   }
 
 }

@@ -60,7 +60,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       this.searchResult = _.filter(this.sidenavItems, (item) => {
         return item.name.toLowerCase().includes(value.toLowerCase());
       });
-      console.log('search', value, this.sidenavItems, this.searchResult);
 
     }));
 

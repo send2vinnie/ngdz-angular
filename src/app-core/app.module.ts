@@ -24,6 +24,7 @@ import { reducers, metaReducers } from './reducers';
 import { routes } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppEffects } from './effects/app-effects';
+import { AbpModule } from './abp/abp.module';
 
 
 export function getJwtToken(): string {
@@ -53,7 +54,8 @@ export function getJwtToken(): string {
         tokenGetter: getJwtToken,
         whitelistedDomains: ['localhost:4200', 'localhost:5000']
       }
-    })
+    }),
+    AbpModule.forRoot()
 
   ],
   providers: [

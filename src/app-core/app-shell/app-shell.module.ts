@@ -27,6 +27,7 @@ import { SidenavCollapseDirective } from './components/sidenav/sidenav-collapse.
 import { MenuService } from './services/menu.service';
 import { EffectsModule } from '@ngrx/effects';
 import { AppShellEffects } from './effects/app-shell.effects';
+import { AbpModule } from '../abp/abp.module';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { AppShellEffects } from './effects/app-shell.effects';
     RouterModule.forChild([]),
     StoreModule.forFeature('shell', reducers),
     EffectsModule.forFeature([AppShellEffects]),
+    AbpModule,
   ],
   declarations: [
     MainShellComponent,

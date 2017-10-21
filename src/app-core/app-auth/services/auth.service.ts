@@ -66,7 +66,6 @@ export class AuthService {
   }
   public decodeToken(tokens): ProfileModel {
     const profile = this.jwt.decodeToken(tokens.id_token ? tokens.id_token : '') as ProfileModel;
-    console.log(profile);
     return profile;
   }
   logout() {
