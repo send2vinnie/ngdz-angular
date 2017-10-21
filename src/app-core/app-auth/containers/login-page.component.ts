@@ -19,9 +19,11 @@ export class LoginPageComponent implements OnInit {
   pending$ = this.store.select(fromAuth.getLoginPagePending);
   error$ = this.store.select(fromAuth.getLoginPageError);
 
-  constructor(private store: Store<fromAuth.State>) {}
+  constructor(private store: Store<fromAuth.State>) {
+    this.store.dispatch(new Auth.LoadInitialState());
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit($event: Authenticate) {
     this.store.dispatch(new Auth.Login($event));

@@ -23,18 +23,20 @@ import { Store } from '@ngrx/store';
 export class AuthEffects {
 
   @Effect()
-  loadInitialState$ = this.actions$.ofType(Auth.LOAD_INITIAL_STATE)
+  loadInitialState$ = this.actions$.ofType(Auth.LOAD_INITIAL_STATE).first()
     .map(action => this.authService.getToken())
     .switchMap(token => {
       if (token === null) { return of(new Auth.NotLoggedIn()); }
 
-      if (this.authService.requireRefresh(token)) {
+      if (!this.authService.requireRefresh(token)) {
         return of(new Auth.LoginSuccess(this.authService.decodeToken(token)));
       }
       return this.authService.refreshTokens(token)
-        .map(new_token => {
-          this.authService.saveToken(new_token);
-          return new Auth.LoginSuccess(this.authService.decodeToken(token));
+        .mergeMap(new_token => {
+          return of<any>(
+            new Auth.SaveTokens(new_token),
+            new Auth.LoginSuccess(this.authService.decodeToken(new_token))
+          );
         })
         .catch(error => of(new Auth.NotLoggedIn()));
     });
@@ -48,12 +50,10 @@ export class AuthEffects {
     .exhaustMap(auth =>
       this.authService
         .login(auth)
-        .mergeMap(token => {
-          this.authService.saveToken(token);
-          return [
-            new Auth.LoginSuccess(this.authService.decodeToken(token))
-          ];
-        })
+        .mergeMap(token => of<any>(
+          new Auth.SaveTokens(token),
+          new Auth.LoginSuccess(this.authService.decodeToken(token))
+        ))
         .catch(error => of(new Auth.LoginFailure(error)))
     );
 
@@ -65,10 +65,11 @@ export class AuthEffects {
     .exhaustMap(token =>
       this.authService
         .refreshTokens(token)
-        .map(new_token => {
-          this.authService.saveToken(new_token);
-          return new Auth.RefreshTokenSuccess(new_token);
-        })
+        .mergeMap(new_token => of<any>(
+          new Auth.SaveTokens(new_token),
+          new Auth.RefreshTokenSuccess(new_token)
+        ))
+
         .catch(error => of(new Auth.RefreshTokenFailure(error)))
     );
 
@@ -95,7 +96,6 @@ export class AuthEffects {
   logout$ = this.actions$
     .ofType(Auth.LOGIN_REDIRECT, Auth.LOGOUT)
     .do(authed => {
-      this.authService.deleteTokens();
       this.router.navigate(['/login']);
     });
 

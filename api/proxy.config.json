@@ -6,6 +6,10 @@
   "/connect": {
     "target": "http://localhost:5555",
     "secure": false
-  } 
-  
+  } ,
+  "/Abp": {
+    "target": "http://localhost:5555",
+    "secure": false
+  }
+
 }

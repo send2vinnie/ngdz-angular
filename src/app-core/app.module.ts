@@ -23,9 +23,11 @@ import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './reducers';
 import { routes } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AppEffects } from './effects/app-effects';
 
-function tokenGetter() {
-  return localStorage.getItem('auth-tokens');
+
+export function getJwtToken(): string {
+  return JSON.parse(localStorage.getItem('auth-tokens') || '{}').access_token;
 }
 @NgModule({
 
@@ -44,11 +46,11 @@ function tokenGetter() {
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AppEffects]),
     // DBModule.provideDB(schema),
     JwtModule.forRoot({
       config: {
-      //  tokenGetter: tokenGetter,
+        tokenGetter: getJwtToken,
         whitelistedDomains: ['localhost:4200', 'localhost:5000']
       }
     })

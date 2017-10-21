@@ -76,6 +76,13 @@ export const LOAD_INITIAL_STATE = '[Auth] Load Initial State';
 export class LoadInitialState implements Action {
   readonly type = LOAD_INITIAL_STATE;
 }
+export const SAVE_TOKENS = '[Auth] Save Tokens';
+export class SaveTokens implements Action {
+  readonly type = SAVE_TOKENS;
+
+  constructor(public payload: AuthTokenModel) { }
+}
+
 export const UNAUTHORISED_ACCESS = '[Auth] Unauthorised Access';
 
 export class UnauthorisedAccess implements Action {
@@ -96,6 +103,7 @@ export type Actions =
   | RefreshToken
   | RefreshTokenFailure
   | RefreshTokenSuccess
+  | SaveTokens
   | UnauthorisedAccess
   | UpdateProfile
   ;

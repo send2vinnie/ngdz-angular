@@ -8,7 +8,7 @@ import {
 import { environment } from '../../environments/environment';
 
 import * as fromRouter from '@ngrx/router-store';
-
+import * as fromApp from './app-reducers';
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
  * exception will be thrown. This is useful during development mode to
@@ -32,6 +32,8 @@ import { RouterStateUrl } from './util';
  */
 export interface State {
   routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
+
+  config: fromApp.State;
 }
 
 /**
@@ -41,6 +43,7 @@ export interface State {
  */
 export const reducers: ActionReducerMap<State> = {
   routerReducer: fromRouter.routerReducer,
+  config: fromApp.reducer
 };
 
 // log  all actions

@@ -16,7 +16,7 @@ app.post('/connect/token', function(req, res){
     res.sendfile(file);
 });
 
-app.post('/AbpUserConfiguration/GetAll', function(req, res){
+app.get('/AbpUserConfiguration/GetAll', function(req, res){
     var file="api/json/config.json";
     res.sendfile(file);
 });

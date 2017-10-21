@@ -24,6 +24,10 @@ export function reducer(state = initialState, action: auth.Actions): State {
         profile: action.payload,
       };
     }
+    case auth.SAVE_TOKENS: {
+      localStorage.setItem('auth-tokens', JSON.stringify(action.payload));
+      return state;
+    }
     case auth.UPDATE_PROFILE: {
       return {
         ...state,
@@ -32,6 +36,7 @@ export function reducer(state = initialState, action: auth.Actions): State {
     }
     case auth.NOT_LOGGED_IN:
     case auth.LOGOUT: {
+      localStorage.removeItem('auth-tokens');
       return {
         ...initialState,
         loggedIn: false
