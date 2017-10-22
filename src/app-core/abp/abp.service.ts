@@ -6,13 +6,11 @@ import { AbpConfig } from './models/abp-config';
 @Injectable()
 export class AbpService {
   public abp: AbpConfig;
-  public abp$: Observable<AbpConfig>;
+  public abp$ = this.store.select(fromApp.getAppConfig);
   constructor(
     private store: Store<fromApp.State>
   ) {
-    this.abp$ = this.store.select(fromApp.getAppConfig).map(o => <AbpConfig>o);
-
-    this.abp$.do(o => console.warn('start abp serve:', o)).subscribe(config => this.abp = config);
+    this.store.select(fromApp.getAppConfig).subscribe(config => this.abp = config);
   }
 
 }

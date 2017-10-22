@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { AbpService } from '../abp.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import * as _ from 'lodash';
 @Injectable()
 export class PermissionCheckerService {
@@ -12,14 +13,17 @@ export class PermissionCheckerService {
     if (!_.has(this.service.abp, 'auth.grantedPermissions')) {
       return false;
     }
-    return this.service.abp.auth.grantedPermissions[permissionName];
+    const ret = this.service.abp.auth.grantedPermissions[permissionName];
+    return ret === true || ret === 'true';
 
   }
   isGranted$(permissionName: string): Observable<boolean> {
 
-    return this.service.abp$.map(abp =>
-      _.has(abp, 'auth.grantedPermissions') ?
-        abp.auth.grantedPermissions[permissionName] : false);
+    return this.service.abp$.map(abp => {
+      if (!_.has(abp, 'auth.grantedPermissions')) { return false; }
+      const ret = abp.auth.grantedPermissions[permissionName];
+      return ret === true || ret === 'true';
+    });
   }
 
 }
