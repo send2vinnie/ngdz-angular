@@ -1,5 +1,5 @@
 import * as sidenav from './sidenav.action';
-import * as _ from 'lodash';
+import { find, each } from 'lodash';
 import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 
 
@@ -99,10 +99,10 @@ function getAllParentItems(item: SidenavItem, currentlyOpenTemp: SidenavItem[] =
 }
 
 function findByRouteRecursive(route: string, collection: SidenavItem[]) {
-  let result = _.find(collection, { 'route': route });
+  let result = find(collection, { 'route': route });
 
   if (!result) {
-    _.each(collection, (item) => {
+    each(collection, (item) => {
       if (item.hasSubItems()) {
         const found = findByRouteRecursive(route, item.subItems);
 

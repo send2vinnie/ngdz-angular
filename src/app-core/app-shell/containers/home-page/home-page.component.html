@@ -1,9 +1,13 @@
 <p>
   sync : {{permission.isGranted('Pages.Administration.AuditLogs')}}
 </p>
-<p>
-  async : {{permission.isGranted$('Pages.Administration.AuditLogs')|async}}
-</p>
+<div *ngIf="(permission.isGranted$('Pages.Administration.AuditLogs')|async)==true">
+  <button mat-button (click)='update()'>AuditLogs</button>
+</div>
+
+async : {{permission.isGranted$('Pages.Administration.AuditLogs')|async}}
 <pre>
   {{abp?.abp$|async | json}}
 </pre>
+
+

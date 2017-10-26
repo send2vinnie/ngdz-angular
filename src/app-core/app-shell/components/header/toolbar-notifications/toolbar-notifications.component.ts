@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import * as moment from 'moment';
+// import { Moment } from 'moment';
 import { LIST_FADE_ANIMATION } from '../../../../app-shared/utils/list.animation';
 
 @Component({
@@ -86,7 +86,8 @@ export class ToolbarNotificationsComponent implements OnInit {
         this.notifications.unshift({
           icon: 'cached',
           name: 'New user registered',
-          time: moment().fromNow(),
+          // time:  moment().fromNow(),
+          time:  'From now ',
           read: false,
           colorClass: '',
         });

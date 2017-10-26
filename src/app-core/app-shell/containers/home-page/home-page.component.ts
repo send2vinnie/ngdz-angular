@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AbpService } from '../../../abp/abp.service';
 import { PermissionCheckerService } from '../../../abp/auth/permission-checker.service';
 
@@ -12,11 +12,15 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     public permission: PermissionCheckerService,
-    public abp: AbpService
+    public abp: AbpService,
+    public cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
 
+  }
+  update() {
+    this.cd.markForCheck();
   }
 
 }

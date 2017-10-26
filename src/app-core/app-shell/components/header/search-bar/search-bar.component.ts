@@ -2,7 +2,7 @@ import { ChangeDetectorRef, OnDestroy, Component, OnInit, ViewChild, ElementRef 
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../reducers';
-import * as _ from 'lodash';
+import { find, filter, each } from 'lodash';
 
 
 import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
@@ -57,7 +57,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
 
     this.Subscriptions.push(this.input$.subscribe(value => {
-      this.searchResult = _.filter(this.sidenavItems, (item) => {
+      this.searchResult = filter(this.sidenavItems, (item) => {
         return item.name.toLowerCase().includes(value.toLowerCase());
       });
 
@@ -94,10 +94,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   findByRouteRecursive(route: string, collection: SidenavItem[] = this.sidenavItems) {
-    let result = _.find(collection, { 'route': route });
+    let result = find(collection, { 'route': route });
 
     if (!result) {
-      _.each(collection, (item) => {
+      each(collection, (item) => {
         if (item.hasSubItems()) {
           const found = this.findByRouteRecursive(route, item.subItems);
 

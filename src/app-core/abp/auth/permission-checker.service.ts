@@ -2,7 +2,7 @@
 import { AbpService } from '../abp.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import * as _ from 'lodash';
+import { has } from 'lodash';
 @Injectable()
 export class PermissionCheckerService {
 
@@ -10,7 +10,7 @@ export class PermissionCheckerService {
 
   }
   isGranted(permissionName: string): boolean {
-    if (!_.has(this.service.abp, 'auth.grantedPermissions')) {
+    if (!has(this.service.abp, 'auth.grantedPermissions')) {
       return false;
     }
     const ret = this.service.abp.auth.grantedPermissions[permissionName];
@@ -20,7 +20,7 @@ export class PermissionCheckerService {
   isGranted$(permissionName: string): Observable<boolean> {
 
     return this.service.abp$.map(abp => {
-      if (!_.has(abp, 'auth.grantedPermissions')) { return false; }
+      if (!has(abp, 'auth.grantedPermissions')) { return false; }
       const ret = abp.auth.grantedPermissions[permissionName];
       return ret === true || ret === 'true';
     });
