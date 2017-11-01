@@ -8,6 +8,7 @@ import { find, filter, each } from 'lodash';
 import { SidenavItem } from '../../../../app-shared/utils/sidenav-item.model';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { SidenavComponent } from '../../sidenav/sidenav.component';
 
 
 
@@ -93,8 +94,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }));
   }
 
-  findByRouteRecursive(route: string, collection: SidenavItem[] = this.sidenavItems) {
-    let result = find(collection, { 'route': route });
+  findByRouteRecursive(route: string, collection: SidenavItem[] = this.sidenavItems): SidenavItem {
+    const result = <SidenavItem>(<any>find(collection, { 'route': route }));
 
     if (!result) {
       each(collection, (item) => {
@@ -102,14 +103,14 @@ export class SearchBarComponent implements OnInit, OnDestroy {
           const found = this.findByRouteRecursive(route, item.subItems);
 
           if (found) {
-            result = found;
-            return false;
+            return found;
+
           }
         }
       });
     }
 
-    return result;
+    return <SidenavItem>result;
   }
 
   openDropdown() {

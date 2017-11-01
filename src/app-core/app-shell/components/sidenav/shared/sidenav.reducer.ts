@@ -71,8 +71,8 @@ export function reducer(state = initialState, action: sidenav.Actions): State {
       let currentlyOpen = [];
       const item = findByRouteRecursive(route, state.sidenavItems);
 
-      if (item && item.hasParent()) {
-        currentlyOpen = getAllParentItems(item.parent);
+      if (item && (<any>item).hasParent()) {
+        currentlyOpen = getAllParentItems((<any>item).parent);
       } else if (item) {
         currentlyOpen = [item];
       }
